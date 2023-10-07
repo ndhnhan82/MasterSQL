@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">MasterSQL</string>
+    <string name="login">Login</string>
+    <string name="policy">By signing in you are agreeing \nour Term and privacy policy</string>
+    <string name="_login">Login</string>
+    <string name="_register">Register</string>
+    <string name="login_register">Login/Register</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="_email_address">"  Email address"</string>
+    <string name="_password">Password</string>
+    <string name="register">Register</string>
+    <string name="retype_password">Retype password</string>
+    <string name="remember_password">Remember password</string>
+    <string name="forget_password">Forget password</string>
 </resources>
