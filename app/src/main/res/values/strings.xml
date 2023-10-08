@@ -13,4 +13,16 @@
     <string name="retype_password">Retype password</string>
     <string name="remember_password">Remember password</string>
     <string name="forget_password">Forget password</string>
+
+    //FORGOT PASSWORD VIEW
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_text">"We will send you an E-mail to reset your password."</string>
+    <string name="forgot_submit">"SUBMIT"</string>
+    <string name="forgot_login">"LOGIN"</string>
+
+    //RESET PASSWORD VIEW
+    <string name="reset_passwordText">"RESET YOUR PASSWORD BELOW"</string>
+    <string name="reset_confirmPasswordTag">"Confirm Password"</string>
+    <string name="reset_passwordButton">"RESET PASSWORD"</string>
+
 </resources>
