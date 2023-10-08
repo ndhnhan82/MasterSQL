@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "1020286948250",
-    "project_id": "mastersql-5383c",
-    "storage_bucket": "mastersql-5383c.appspot.com"
+    "project_number": "471845654689",
+    "firebase_url": "https://mastersql-57566-default-rtdb.firebaseio.com",
+    "project_id": "mastersql-57566",
+    "storage_bucket": "mastersql-57566.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1020286948250:android:55ad1593c11e7021baa023",
+        "mobilesdk_app_id": "1:471845654689:android:1e9b67209a13f0c34be0e0",
         "android_client_info": {
           "package_name": "com.example.mastersql"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBAAI3c09GLXRzBPv-ON4wWW4FozetYf7w"
+          "current_key": "AIzaSyAjpSLbX6rZASnv7icMgIzWMw_wQ0u2LTY"
         }
       ],
       "services": {
