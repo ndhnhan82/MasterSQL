@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfile">
+    tools:context=".EditProfile"
+    >
 
     <ImageView
         android:id="@+id/ivProfile"
@@ -30,7 +31,7 @@
         android:textStyle="bold"/>
 
     <Button
-        android:id="@+id/btnEditPictiure"
+        android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit"
@@ -46,17 +47,9 @@
         android:ems="10"
         android:inputType="text"
         android:text="Name:"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvEmail"
         app:layout_constraintTop_toBottomOf="@id/tvEmail"
         android:layout_marginTop="30sp"/>
-
-    <Button
-        android:id="@+id/btnEditName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit"
-       app:layout_constraintLeft_toLeftOf="@id/btnEditPictiure"
-        app:layout_constraintTop_toTopOf="@id/edName"/>
 
     <TextView
         android:id="@+id/tvEmail"
@@ -67,6 +60,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="35sp"
         android:textSize="20sp"
+        android:layout_marginLeft="95dp"
         />
 
     <EditText
@@ -77,17 +71,9 @@
         android:inputType="number"
         android:text="Age:"
         app:layout_constraintTop_toBottomOf="@id/edName"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvEmail"
         android:layout_marginTop="30sp"
         />
-
-    <Button
-        android:id="@+id/btnEditAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit"
-        app:layout_constraintTop_toTopOf="@id/edAge"
-        app:layout_constraintRight_toRightOf="@id/btnEditName"/>
 
     <EditText
         android:id="@+id/edPassword"
@@ -97,26 +83,19 @@
         android:inputType="text"
         android:text="Password"
         app:layout_constraintTop_toBottomOf="@id/edAge"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvEmail"
         android:layout_marginTop="35sp"/>
-
-    <Button
-        android:id="@+id/btnEditPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        app:layout_constraintTop_toTopOf="@id/edPassword"
-        app:layout_constraintLeft_toLeftOf="@id/btnEditAge"/>
 
     <TextView
         android:id="@+id/tvLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Language:"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvEmail"
         app:layout_constraintTop_toBottomOf="@id/edPassword"
         android:textSize="20sp"
-        android:layout_marginTop="35sp"/>
+        android:layout_marginTop="35sp"
+        />
 
     <Spinner
         android:id="@+id/spLanguage"
@@ -134,17 +113,9 @@
         android:ems="10"
         android:inputType="text"
         android:text="Country"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvEmail"
         app:layout_constraintTop_toBottomOf="@id/tvLanguage"
         android:layout_marginTop="35sp"/>
-
-    <Button
-        android:id="@+id/btnEditCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit"
-        app:layout_constraintLeft_toLeftOf="@id/btnEditPassword"
-        app:layout_constraintTop_toTopOf="@id/edCountry"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
