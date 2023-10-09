@@ -10,7 +10,7 @@
     <string name="_email_address">"  Email address"</string>
     <string name="_password">Password</string>
     <string name="register">Register</string>
-    <string name="retype_password">Retype password</string>
+    <string name="retype_password">Confirm password</string>
     <string name="remember_password">Remember password</string>
     <string name="forget_password">Forget password</string>
 
@@ -24,5 +24,8 @@
     <string name="reset_passwordText">"RESET YOUR PASSWORD BELOW"</string>
     <string name="reset_confirmPasswordTag">"Confirm Password"</string>
     <string name="reset_passwordButton">"RESET PASSWORD"</string>
+    <string name="profile_overview">Profile Overview</string>
+    <string name="edit">Edit</string>
+    <string name="profile_picture">Profile Picture</string>
 
 </resources>

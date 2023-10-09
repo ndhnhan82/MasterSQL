@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfile">
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/profile_picture"
+        android:src="@drawable/img"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEditProfile" />
+
+    <TextView
+        android:id="@+id/tvEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_overview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btnEditPictiure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        app:layout_constraintBottom_toBottomOf="@id/ivProfile"
+        app:layout_constraintLeft_toRightOf="@id/ivProfile"
+        android:layout_marginStart="20sp"
+        />
+
+    <EditText
+        android:id="@+id/edName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail"
+        android:layout_marginTop="30sp"/>
+
+    <Button
+        android:id="@+id/btnEditName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+       app:layout_constraintLeft_toLeftOf="@id/btnEditPictiure"
+        app:layout_constraintTop_toTopOf="@id/edName"/>
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Email"
+        app:layout_constraintTop_toBottomOf="@id/ivProfile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="35sp"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:id="@+id/edAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Age:"
+        app:layout_constraintTop_toBottomOf="@id/edName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="30sp"
+        />
+
+    <Button
+        android:id="@+id/btnEditAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        app:layout_constraintTop_toTopOf="@id/edAge"
+        app:layout_constraintRight_toRightOf="@id/btnEditName"/>
+
+    <EditText
+        android:id="@+id/edPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Password"
+        app:layout_constraintTop_toBottomOf="@id/edAge"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="35sp"/>
+
+    <Button
+        android:id="@+id/btnEditPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        app:layout_constraintTop_toTopOf="@id/edPassword"
+        app:layout_constraintLeft_toLeftOf="@id/btnEditAge"/>
+
+    <TextView
+        android:id="@+id/tvLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Language:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edPassword"
+        android:textSize="20sp"
+        android:layout_marginTop="35sp"/>
+
+    <Spinner
+        android:id="@+id/spLanguage"
+        android:layout_width="160dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="128dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvLanguage"
+        app:layout_constraintLeft_toLeftOf="@id/tvLanguage"
+        app:layout_constraintLeft_toRightOf="@id/edPassword" />
+
+    <EditText
+        android:id="@+id/edCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Country"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLanguage"
+        android:layout_marginTop="35sp"/>
+
+    <Button
+        android:id="@+id/btnEditCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        app:layout_constraintLeft_toLeftOf="@id/btnEditPassword"
+        app:layout_constraintTop_toTopOf="@id/edCountry"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
