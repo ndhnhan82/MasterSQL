@@ -59,7 +59,7 @@ public class ResetPassword extends AppCompatActivity implements View.OnClickList
 
     private void goToLogin() {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
 
         startActivity(intent);
     }

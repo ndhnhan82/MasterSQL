@@ -15,7 +15,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edEmailPassword"
+            android:id="@+id/tieEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/_email_address"
@@ -39,7 +39,7 @@
         app:startIconDrawable="@android:drawable/ic_lock_idle_lock">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edPassword"
+            android:id="@+id/tiePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/_password"
@@ -61,10 +61,10 @@
         app:startIconDrawable="@android:drawable/ic_lock_idle_lock">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edPassword2"
+            android:id="@+id/tiePassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/retype_password"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
             android:textSize="20sp"
             android:textColorHint="@android:color/holo_blue_dark"

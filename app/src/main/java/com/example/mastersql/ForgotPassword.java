@@ -73,7 +73,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     private void goToLogin() {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
 
         startActivity(intent);
     }
