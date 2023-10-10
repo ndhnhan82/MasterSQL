@@ -10,7 +10,33 @@
     <string name="_email_address">"  Email address"</string>
     <string name="_password">Password</string>
     <string name="register">Register</string>
-    <string name="retype_password">Retype password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="remember_password">Remember password</string>
     <string name="forget_password">Forget password</string>
+
+    //Navigation menu
+    <string name="nav_home">Home</string>
+    <string name="nav_favorite">Favorite</string>
+    <string name="nav_history">History</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_profile">My profile</string>
+    <string name="nav_sign_out">Sign out</string>
+
+    <string name="nav_drawer_open">Open navigation</string>
+    <string name="nav_drawer_close">Close navigation</string>
+
+
+    //FORGOT PASSWORD VIEW
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_text">"We will send you an E-mail to reset your password."</string>
+    <string name="forgot_submit">"SUBMIT"</string>
+    <string name="forgot_login">"LOGIN"</string>
+
+    //RESET PASSWORD VIEW
+    <string name="reset_passwordText">"RESET YOUR PASSWORD BELOW"</string>
+    <string name="reset_confirmPasswordTag">"Confirm Password"</string>
+    <string name="reset_passwordButton">"RESET PASSWORD"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
