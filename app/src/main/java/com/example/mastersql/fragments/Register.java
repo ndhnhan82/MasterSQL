@@ -1,5 +1,7 @@
 package com.example.mastersql.fragments;
 
+import static com.example.mastersql.fragments.Login.user;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -69,6 +71,7 @@ public class Register extends Fragment implements View.OnClickListener {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
+                                user.setEmailAddress( strEmail );
                                 Intent intent = new Intent( getActivity(), MainActivity.class );
                                 startActivity( intent );
                                 getActivity().finishAffinity();
