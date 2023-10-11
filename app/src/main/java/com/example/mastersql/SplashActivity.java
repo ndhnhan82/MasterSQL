@@ -1,12 +1,12 @@
 package com.example.mastersql;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.example.mastersql.fragments.Login.user;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,11 +29,12 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void nextActivity() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity( intent );
         }else{
+            user.setEmailAddress( currentUser.getEmail());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity( intent );
         }
