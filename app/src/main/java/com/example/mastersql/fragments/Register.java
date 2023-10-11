@@ -59,11 +59,11 @@ public class Register extends Fragment implements View.OnClickListener {
         String strEmail = tieEmailAddress.getText().toString();
         String strPassword = tieEmailAddress.getText().toString();
         String strPassword2 = tiePassword2.getText().toString();
-        if (!strPassword.equals( strPassword ))
+        if (strPassword.equals(strPassword2 ))
             showAlert( "Confirm password and password are not the same!" );
         else {
             progressDialog.show();
-            mAuth.createUserWithEmailAndPassword( strEmail, strPassword )
+            mAuth.createUserWithEmailAndPassword( strEmail, strPassword)
                     .addOnCompleteListener( getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {

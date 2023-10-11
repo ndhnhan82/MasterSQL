@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initialize() {
         ViewPager mVpLogin = findViewById(R.id.vpgLogin);
         mVpLogin.setAdapter(new LoginAdapter(getSupportFragmentManager()));
-        TabLayout tabLayout = findViewById(R.id.tloLogin);
+        TabLayout tabLayout = findViewById(R.id.tlLogin );
         tabLayout.setupWithViewPager(mVpLogin);
     }
 }

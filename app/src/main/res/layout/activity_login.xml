@@ -40,7 +40,7 @@
         />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tloLogin"
+        android:id="@+id/tlLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tvPolicy"
@@ -69,7 +69,7 @@
         android:layout_height="0dp"
         android:contentDescription="@string/login_register"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tloLogin">
+        app:layout_constraintTop_toBottomOf="@id/tlLogin">
 
     </androidx.viewpager.widget.ViewPager>
 
