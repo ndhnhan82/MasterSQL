@@ -57,9 +57,9 @@ public class Register extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         mAuth = FirebaseAuth.getInstance();
         String strEmail = tieEmailAddress.getText().toString();
-        String strPassword = tieEmailAddress.getText().toString();
+        String strPassword = tiePassword.getText().toString();
         String strPassword2 = tiePassword2.getText().toString();
-        if (strPassword.equals(strPassword2 ))
+        if (!strPassword.equals(strPassword2))
             showAlert( "Confirm password and password are not the same!" );
         else {
             progressDialog.show();
