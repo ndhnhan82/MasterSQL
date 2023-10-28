@@ -1,11 +1,12 @@
 package com.example.mastersql;
 
-import static com.example.mastersql.fragments.Login.user;
+import static fragments.Login.user;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mastersql.fragments.Home;
-import com.example.mastersql.fragments.Profile;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import fragments.Home;
+import fragments.Profile;
+import model.User;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
@@ -29,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int mCurrentFragment = FRAGMENT_HOME;
 
     private TextView tvUserName, tvEmailAddress;
-
+    private ImageView profilePic;
+    private int SELECT_PICTURE = 200;
 
 //    private FirebaseAuth mAuth;
 
@@ -56,16 +60,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigationView.setNavigationItemSelectedListener( this );
         replaceFragment( new Home() );
         navigationView.getMenu().findItem( R.id.nav_home ).setChecked( true );
-        View navHeaderView= navigationView.getHeaderView( 0 );
-        TextView tvEmailAddress = navHeaderView.findViewById(R.id.tvEmailAddress);
-        tvEmailAddress.setText(user.getEmailAddress());
+        View navHeaderView = navigationView.getHeaderView( 0 );
+        TextView tvEmailAddress = navHeaderView.findViewById( R.id.tvEmailAddress );
+        tvEmailAddress.setText( user.getEmailAddress() );
 
     }
 
     @Override
     public void onClick(View view) {
-
-//        FirebaseAuth.getInstance().signOut();
 
     }
 
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else if (id == R.id.nav_signout) {
             FirebaseAuth.getInstance().signOut();
+            user = new User( "test@gmail.com" );
             this.finish();
             Intent intent = new Intent( this, SplashActivity.class );
             startActivity( intent );
@@ -108,4 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.replace( R.id.content_frame, fragment );
         transaction.commit();
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.mastersql.fragments;
+package fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,15 +15,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mastersql.MainActivity;
 import com.example.mastersql.R;
-import com.example.mastersql.model.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+
+import model.User;
 
 public class Login extends Fragment implements View.OnClickListener {
     private TextInputEditText tieEmailAddress, tiePassword;
     TextView tvForgetPassword;
     private View mRootView;
-    public static final User user = new User( "your_email@abc.com" );
+    public static User user = new User( "your_email@abc.com" );
+
 
 
     @Nullable
@@ -64,11 +66,14 @@ public class Login extends Fragment implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             gotoMainActivity();
                             user.setEmailAddress( strEmail );
+
                         } else
                             showAlert( "Your email or password is not correct. PLease try again or register a new user!" );
                     } );
         }
     }
+
+
 
     private void gotoMainActivity() {
         Intent intent = new Intent( getContext(), MainActivity.class );
