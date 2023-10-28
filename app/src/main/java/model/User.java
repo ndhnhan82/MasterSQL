@@ -1,13 +1,22 @@
-package com.example.mastersql.model;
+package model;
+
+import androidx.annotation.NonNull;
 
 public class User {
-    public enum languages {En,Fr};
+    public enum languages {English, French};
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Email: "+emailAddress+", name: "+fullName;
+    }
+
     private String fullName;
     private String emailAddress;
     private languages languagePrefer;
     private int age;
     private String country;
-    private int topic;
+    private int currentTopic;
     private float progress;
     private int start;
 
@@ -38,12 +47,12 @@ public class User {
     public void setStart(int start) {
         this.start = start;
     }
-    public int getTopic() {
-        return topic;
+    public int getCurrentTopic() {
+        return currentTopic;
     }
 
-    public void setTopic(int topic) {
-        this.topic = topic;
+    public void setCurrentTopic(int currentTopic) {
+        this.currentTopic = currentTopic;
     }
 
     public String getFullName() {

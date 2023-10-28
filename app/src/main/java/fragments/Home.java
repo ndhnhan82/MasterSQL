@@ -1,4 +1,4 @@
-package com.example.mastersql.fragments;
+package fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

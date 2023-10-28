@@ -1,6 +1,6 @@
 package com.example.mastersql;
 
-import static com.example.mastersql.fragments.Login.user;
+import static fragments.Login.user;
 
 import android.content.Intent;
 import android.os.Bundle;
