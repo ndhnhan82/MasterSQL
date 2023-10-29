@@ -45,7 +45,7 @@ public class Profile extends Fragment implements View.OnClickListener {
     private EditText edName, edAge, edCountry;
     private Spinner spLanguage;
     private ToggleButton btnEditSave;
-    private ImageView imgProfile, imgAvatar;
+    private ImageView imgProfile;
     private int SELECT_PICTURE = 200;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
@@ -82,7 +82,6 @@ public class Profile extends Fragment implements View.OnClickListener {
         btnEditSave.setChecked( false );
         btnEditSave.setOnClickListener( this );
         imgProfile = (ImageView) mRootView.findViewById( R.id.ivProfile );
-        imgAvatar = (ImageView) mRootView.findViewById( R.id.imgUser );
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -96,8 +95,9 @@ public class Profile extends Fragment implements View.OnClickListener {
                 imageChooser();
             }
         } );
-
     }
+
+
 
     private void fletchData() {
         curUser.addValueEventListener( new ValueEventListener() {
@@ -111,6 +111,7 @@ public class Profile extends Fragment implements View.OnClickListener {
                 int selection = (snapshot.child( "languagePrefer" )
                         .getValue().equals( "English" )) ? 0 : 1;
                 spLanguage.setSelection( selection );
+
             }
 
             @Override
