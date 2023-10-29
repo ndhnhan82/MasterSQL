@@ -45,6 +45,8 @@ public class Login extends Fragment implements View.OnClickListener {
         tvForgetPassword.setOnClickListener( this );
     }
 
+
+
     @Override
     public void onClick(View view) {
 // Initialize Firebase Auth
