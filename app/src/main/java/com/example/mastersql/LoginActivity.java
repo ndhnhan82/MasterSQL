@@ -5,8 +5,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.mastersql.adapter.LoginAdapter;
 import com.google.android.material.tabs.TabLayout;
+
+import adapter.LoginAdapter;
 
 public class LoginActivity extends AppCompatActivity {
 
