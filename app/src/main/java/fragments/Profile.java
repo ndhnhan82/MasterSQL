@@ -143,7 +143,6 @@ public class Profile extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with( getContext() ).load( uri ).into( imgProfile );
-//                Glide.with(getContext()).load(uri).into(imgAvatar);
 
             }
         } ).addOnFailureListener( new OnFailureListener() {

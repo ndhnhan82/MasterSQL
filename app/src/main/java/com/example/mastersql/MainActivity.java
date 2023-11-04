@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference curUser;
     private String safeEmail;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -100,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         storageReference.child( pathString ).getDownloadUrl().addOnSuccessListener( new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with( getBaseContext() ).load( uri ).into( imgAvatar );
+
+                Glide.with(getBaseContext()).load( uri ).into( imgAvatar );
             }
         } );
 
