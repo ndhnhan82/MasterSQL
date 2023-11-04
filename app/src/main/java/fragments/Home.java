@@ -1,4 +1,4 @@
-package com.example.mastersql.fragments;
+package fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

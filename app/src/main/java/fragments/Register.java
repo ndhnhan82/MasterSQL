@@ -1,6 +1,6 @@
-package com.example.mastersql.fragments;
+package fragments;
 
-import static com.example.mastersql.fragments.Login.user;
+import static fragments.Login.user;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -24,6 +24,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import model.User;
 
 public class Register extends Fragment implements View.OnClickListener {
     private View mRootView;
@@ -33,6 +37,8 @@ public class Register extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
     AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
+    private DatabaseReference usersDatabase;
+
 
     @Nullable
     @Override
@@ -52,7 +58,7 @@ public class Register extends Fragment implements View.OnClickListener {
         tiePassword2 = (TextInputEditText) mRootView.findViewById( R.id.tiePassword2 );
         btnRegister = (Button) mRootView.findViewById( R.id.btnRegister );
         btnRegister.setOnClickListener( this );
-
+        usersDatabase = FirebaseDatabase.getInstance().getReference( "Users" );
     }
 
     @Override
@@ -72,6 +78,13 @@ public class Register extends Fragment implements View.OnClickListener {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
                                 user.setEmailAddress( strEmail );
+                                user.setLanguagePrefer( User.languages.English );
+                                user.setAge( 0 );
+                                user.setCountry( "" );
+                                user.setFullName( "" );
+                                user.setRole( User.roles.NormalUser );
+
+                                addUpdateUser(user);
                                 Intent intent = new Intent( getActivity(), MainActivity.class );
                                 startActivity( intent );
                                 getActivity().finishAffinity();
@@ -83,11 +96,19 @@ public class Register extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void addUpdateUser(User user) {
+        String safeEmail = user.getEmailAddress();
+        safeEmail= safeEmail.replace( "@","-" );
+        safeEmail= safeEmail.replace( ".","-" );
+
+        usersDatabase.child( safeEmail).setValue( user );
+    }
+
     private void showAlert(String message) {
 
         builder = new AlertDialog.Builder( getContext() );
 
-        builder.setTitle( "Notification" )
+        builder.setTitle( "Message" )
                 .setMessage( message )
                 .setCancelable( true )
                 .setPositiveButton( "OK", new DialogInterface.OnClickListener() {

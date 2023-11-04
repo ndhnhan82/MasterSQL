@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Profile"
+    tools:context="fragments.Profile"
     >
     <TextView
         android:id="@+id/tvEditProfile"
@@ -17,17 +17,20 @@
         android:layout_marginTop="10dp"
         android:textSize="25sp"
         android:textStyle="bold"/>
-    <ImageView
+    <!-- circle image view to show the image -->
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfile"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="@string/profile_picture"
-        android:src="@drawable/ic_avatar_default"
+        app:civ_border_width= "3dp"
+        app:civ_border_color= "@color/black"
+        android:src= "@drawable/ic_avatar_default"
+        android:layout_centerInParent= "true"
+        android:layout_width= "140dp"
+        android:layout_height= "140dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditProfile" />
-    <TextView
+        app:layout_constraintTop_toBottomOf="@id/tvEditProfile"/>
+
+      <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +43,7 @@
         android:layout_marginTop="20dp"
         />
     <TextView
-        android:id="@+id/tvUserName"
+        android:id="@+id/tvUserNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tvEmail"
@@ -57,15 +60,15 @@
         android:layout_height="wrap_content"
         android:ems="12"
         android:inputType="text"
-        app:layout_constraintStart_toEndOf="@id/tvUserName"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvUserName"
+        app:layout_constraintStart_toEndOf="@id/tvUserNameLabel"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvUserNameLabel"
         android:layout_marginTop="30sp"/>
     <TextView
         android:id="@+id/tvAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvUserName"
-        app:layout_constraintRight_toRightOf="@id/tvUserName"
+        app:layout_constraintTop_toBottomOf="@id/tvUserNameLabel"
+        app:layout_constraintRight_toRightOf="@id/tvUserNameLabel"
         android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:text="@string/age"
@@ -89,7 +92,7 @@
         android:text="Language:"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tvUserName"
+        app:layout_constraintEnd_toEndOf="@id/tvUserNameLabel"
         app:layout_constraintTop_toBottomOf="@id/edAge"
         />
     <Spinner
@@ -109,7 +112,7 @@
         android:text="@string/country"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tvUserName"
+        app:layout_constraintEnd_toEndOf="@id/tvUserNameLabel"
         app:layout_constraintTop_toBottomOf="@id/tvLanguage"
         />
     <EditText
