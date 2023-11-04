@@ -82,6 +82,7 @@ public class Register extends Fragment implements View.OnClickListener {
                                 user.setAge( 0 );
                                 user.setCountry( "" );
                                 user.setFullName( "" );
+                                user.setRole( User.roles.NormalUser );
 
                                 addUpdateUser(user);
                                 Intent intent = new Intent( getActivity(), MainActivity.class );
@@ -107,7 +108,7 @@ public class Register extends Fragment implements View.OnClickListener {
 
         builder = new AlertDialog.Builder( getContext() );
 
-        builder.setTitle( "Notification" )
+        builder.setTitle( "Message" )
                 .setMessage( message )
                 .setCancelable( true )
                 .setPositiveButton( "OK", new DialogInterface.OnClickListener() {

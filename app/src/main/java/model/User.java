@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 public class User {
     public enum languages {English, French};
+    public enum roles{Admin, NormalUser}
 
     @NonNull
     @Override
@@ -20,16 +21,31 @@ public class User {
     private float progress;
     private int start;
 
-    public User(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public roles getRole() {
+        return role;
     }
 
-    public User(String fullName, String emailAddress, int age, String country, languages languagePrefer) {
+    public void setRole(roles role) {
+        this.role = role;
+    }
+
+    private roles role;
+
+    public User(String emailAddress) {
+        this.emailAddress = emailAddress;
+        this.role = roles.NormalUser;
+    }
+
+    public User(String fullName, String emailAddress, languages languagePrefer, int age, String country, int currentTopic, float progress, int start, roles role) {
         this.fullName = fullName;
         this.emailAddress = emailAddress;
+        this.languagePrefer = languagePrefer;
         this.age = age;
         this.country = country;
-        this.languagePrefer = languagePrefer;
+        this.currentTopic = currentTopic;
+        this.progress = progress;
+        this.start = start;
+        this.role = roles.NormalUser;
     }
 
     public float getProgress() {

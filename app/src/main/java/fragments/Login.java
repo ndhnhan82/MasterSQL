@@ -17,6 +17,8 @@ import com.example.mastersql.MainActivity;
 import com.example.mastersql.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import model.User;
 
@@ -25,6 +27,8 @@ public class Login extends Fragment implements View.OnClickListener {
     TextView tvForgetPassword;
     private View mRootView;
     public static User user = new User( "your_email@abc.com" );
+
+    private DatabaseReference usersDatabase;
 
 
 
@@ -43,6 +47,7 @@ public class Login extends Fragment implements View.OnClickListener {
         tvForgetPassword = (TextView) mRootView.findViewById( R.id.tvForgetPass );
         btnLogin.setOnClickListener( this );
         tvForgetPassword.setOnClickListener( this );
+        usersDatabase = FirebaseDatabase.getInstance().getReference("Users");
     }
 
 
