@@ -18,11 +18,7 @@
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
         android:name=".LoginActivity"
@@ -33,6 +29,42 @@
             android:screenOrientation="portrait"
             android:exported="false" />
 
+        <activity
+            android:name=".ExToolsSecond"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseTools4"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseTools3"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseTools2"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseTools1"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ExerciseBasicViews5"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseBasicTerms4"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseBasictTerms3"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseBasicTerms2"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseBasicTerms1"
+            android:exported="false" />
 </application>
 
 </manifest>
