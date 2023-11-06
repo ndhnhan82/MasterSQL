@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,9 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class SubCourseContentActivity extends AppCompatActivity {
+public class SubCourseContentActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FloatingActionButton btnAddCourse;
+    private FloatingActionButton btnAddCourse, fbtnBack;
 
     private EditText editText;
 
@@ -58,6 +59,9 @@ public class SubCourseContentActivity extends AppCompatActivity {
         btnAddCourse = findViewById(R.id.btnAddCourse);
 
         headerTitle = findViewById(R.id.tvSubCourseHeader);
+
+        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack.setOnClickListener(this);
 
 
 
@@ -118,6 +122,18 @@ public class SubCourseContentActivity extends AppCompatActivity {
         storageReference = storage.getReference();
 
 
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        if (id == fbtnBack.getId())
+        {
+            finish();
+        }
 
 
     }

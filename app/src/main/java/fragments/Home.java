@@ -238,7 +238,7 @@ public class Home extends Fragment implements View.OnClickListener {
     {
         Intent intent = new Intent( getContext(), AddCourse.class );
         startActivity( intent );
-        getActivity().finishAffinity();
+        //getActivity().finishAffinity();
     }
 
 
