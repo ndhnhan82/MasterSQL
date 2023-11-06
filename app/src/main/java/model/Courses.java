@@ -1,4 +1,4 @@
-package com.example.mastersql.model;
+package model;
 
 import androidx.annotation.NonNull;
 

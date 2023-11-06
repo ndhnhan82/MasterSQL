@@ -15,11 +15,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.mastersql.model.Content;
-import com.example.mastersql.model.Courses;
-import com.example.mastersql.model.SubCourse;
+import fragments.Home;
+import model.Content;
+import model.Courses;
+import model.SubCourse;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,6 +37,8 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     private EditText editTxtCourseTitle, editTxtSubCourseTitle, editTxtCourseID, editTxtSubCourseID, edTxtContentHeader, edTxtContentText;
 
     private Button btnAdd;
+
+    private FloatingActionButton fbtnBack;
 
     //For Realtime database
     DatabaseReference courseDatabase, subDatabase;
@@ -59,6 +63,9 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
+
+        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack.setOnClickListener(this);
 
         editTxtCourseTitle = findViewById(R.id.edTxtCourseTitle);
         editTxtCourseID = findViewById(R.id.edTxtCourseID);
@@ -108,8 +115,13 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         if(id == R.id.btnAdd)
             AddCourse();
 
+        if(id == R.id.fbtnBack)
+            finish();
+
 
     }
+
+
 
     @SuppressLint("NotConstructor")
     private void AddCourse() {

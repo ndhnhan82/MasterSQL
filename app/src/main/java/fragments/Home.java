@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mastersql.AddCourse;
 import com.example.mastersql.R;
 import com.example.mastersql.SubcourseListActivity;
-import com.example.mastersql.adapter.CourseAdapter;
+import adapter.CourseAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -238,7 +238,7 @@ public class Home extends Fragment implements View.OnClickListener {
     {
         Intent intent = new Intent( getContext(), AddCourse.class );
         startActivity( intent );
-        getActivity().finishAffinity();
+        //getActivity().finishAffinity();
     }
 
 

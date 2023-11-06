@@ -13,11 +13,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.mastersql.adapter.CourseAdapter;
-import com.example.mastersql.model.Courses;
+import adapter.CourseAdapter;
+import model.Courses;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,9 +35,11 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
     private ListView lvCourses;
 
-    private FloatingActionButton btnAddCourse;
+    private FloatingActionButton btnAddCourse, fbtnBack;
 
     private String text;
+
+    private Button btnTakeAQuiz;
 
 
 
@@ -78,6 +81,12 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
        btnAddCourse = findViewById(R.id.btnAddCourse);
        btnAddCourse.setOnClickListener(this);
+
+        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack.setOnClickListener(this);
+
+        btnTakeAQuiz = findViewById(R.id.btnTakeQuiz);
+        btnTakeAQuiz.setOnClickListener(this);
 
 
         //Initialization of Objects to Firebase database & Storage
@@ -164,20 +173,59 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         if(id == R.id.btnAddCourse)
             view();
 
+        if(id == R.id.fbtnBack)
+            finish();
+
+        if(id == R.id.btnTakeQuiz)
+            takeQuiz();
+
+
+
 
     }
 
+    private void takeQuiz() {
+
+        //showAlert(text);
+
+        if (text.equals("BASIC TERMS"))
+        {
+            Intent intent = new Intent( SubcourseListActivity.this, ExerciseBasicTerms1.class );
+
+
+            //intent.putExtra("course_title", text);
+
+            startActivity( intent );
+        }else if (text.equals("TOOLS OF SQL"))
+        {
+            //Intent intent = new Intent( SubcourseListActivity.this, ExerciseTools1.class );
+
+
+            //intent.putExtra("course_title", text);
+
+            //startActivity( intent );
+
+            showAlert("There is not a quiz available at the moment");
+        }
+        else
+        {
+            showAlert("There is not a quiz available at the moment");
+        }
+
+    }
+
+
     private void view() {
 
-        showAlert("The text value is: " + text);
+        //showAlert("The text value is: " + text);
 
-        Intent intent = new Intent( SubcourseListActivity.this, AddSubcourseActivity.class );
+        Intent intent = new Intent( SubcourseListActivity.this, AddCourse.class );
 
 
         intent.putExtra("course_title", text);
 
         startActivity( intent );
-        SubcourseListActivity.this.finishAffinity();
+        //SubcourseListActivity.this.finishAffinity();
 
 
     }

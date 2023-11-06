@@ -54,4 +54,39 @@
         <item>French</item>
     </string-array>
 
+    // EXERCISES STRINGS
+
+    //BASIC TERMS QUESTIONS
+    <string name="BT_Question1">What does SQL stand for?</string>
+    <string name="secure_quality_lab">Secure Quality Lab</string>
+    <string name="structured_query_language">Structured Query Language</string>
+    <string name="simple_query_language">Simple Query Language</string>
+    <string name="sequential_query_language">Sequential Query Language</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="what_is_a_primary_key">What is a primary key?</string>
+    <string name="unique_identifier_for_each_row">Unique identifier for each row</string>
+    <string name="a_data_type">A data type</string>
+    <string name="a_table_name">A table name</string>
+    <string name="selected_rows">Selected Rows</string>
+    <string name="include">Include</string>
+    <string name="everything">Everything</string>
+    <string name="what_is_a_foreign_key">What is a foreign key?</string>
+    <string name="constraint_that_ensures_column_uniqueness">Constraint that ensures column uniqueness</string>
+    <string name="an_automatically_generated_key">an automatically generated key</string>
+    <string name="a_key_that_stores_duplicate_values">A key that stores duplicate values</string>
+    <string name="a_link_between_tablea">A link between tables</string>
+    <string name="how_many_primary_keys_can_a_table_have">How many primary keys can a table have?</string>
+
+    //TOOLS OF SQL QUESTIONS
+    <string name="which_sql_tool_would_you_use_for_a_large_scale_application">Which SQL tool would you use for a large-scale application?</string>
+    <string name="microsoft_sql">Microsoft SQL</string>
+    <string name="oracle">Oracle</string>
+    <string name="sqlite">SQLITE</string>
+    <string name="mysql">MySQL</string>
+    <string name="which_sql_tool_would_you_use_for_web_applications">Which SQL tool would you use for web applications?</string>
+    <string name="which_sql_tool_would_you_use_for_online_transactions">Which SQL tool would you use for online transactions?</string>
+    <string name="which_sql_tool_would_you_use_for_mobile_applications">Which SQL tool would you use for mobile applications?</string>
+    <string name="done">Done</string>
+
 </resources>
