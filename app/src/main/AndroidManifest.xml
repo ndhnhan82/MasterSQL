@@ -23,34 +23,28 @@
         <activity
             android:name=".SubcourseListActivity"
             android:exported="false" />
-        <activity
-            android:name=".model.CoursesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.SubCourseList"
-            android:exported="false" />
+
         <activity
             android:name=".AddCourse"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-<<<<<<< HEAD
-            android:name=".LoginActivity"
-            android:exported="false" />
-=======
-        android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-        android:exported="false" />
->>>>>>> main
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
