@@ -3,8 +3,14 @@
     <style name="Base.Theme.MasterSQL" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimaryDark">@android:color/holo_blue_dark</item>
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="titleTextStyle">@dimen/_40dp</item>
     </style>
-
+<style name="button">
+    <item name="textAllCaps">false</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">#f00</item>
+</style>
     <style name="Theme.MasterSQL" parent="Base.Theme.MasterSQL" />
 
     <style name="editTextAddCourse">

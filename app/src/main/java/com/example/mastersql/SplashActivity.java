@@ -1,6 +1,6 @@
 package com.example.mastersql;
 
-import static fragments.Login.user;
+import static fragments.Login.loggedInUser;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity( intent );
         }else{
-            user.setEmailAddress( currentUser.getEmail());
+            loggedInUser.setEmailAddress( currentUser.getEmail());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity( intent );
         }
