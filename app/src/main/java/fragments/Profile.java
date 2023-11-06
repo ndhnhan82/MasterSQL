@@ -1,16 +1,18 @@
 package fragments;
 
 import static android.app.Activity.RESULT_OK;
-import static fragments.Login.user;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -20,9 +22,11 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.mastersql.LoginActivity;
 import com.example.mastersql.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,6 +49,7 @@ public class Profile extends Fragment implements View.OnClickListener {
     private EditText edName, edAge, edCountry;
     private Spinner spLanguage;
     private ToggleButton btnEditSave;
+    private Button btnDelete, btnReturn;
     private ImageView imgProfile;
     private int SELECT_PICTURE = 200;
     private FirebaseStorage firebaseStorage;
@@ -53,6 +58,17 @@ public class Profile extends Fragment implements View.OnClickListener {
     private DatabaseReference curUser;
     private Uri selectedImageUri;
     private ArrayAdapter<CharSequence> adapter;
+
+    private User user;
+
+    public Profile() {
+    }
+
+    ;
+
+    public Profile(User user) {
+        this.user = user;
+    }
 
     @Nullable
     @Override
@@ -79,6 +95,15 @@ public class Profile extends Fragment implements View.OnClickListener {
         tvEmail.setText( user.getEmailAddress() );
 
         btnEditSave = (ToggleButton) mRootView.findViewById( R.id.btnToggleEditSave );
+        btnDelete = (Button) mRootView.findViewById( R.id.btnDelete );
+        if (user.getRole().toString().equals( "NormalUser" ))
+            btnDelete.setVisibility( mRootView.INVISIBLE );
+        else
+            btnDelete.setVisibility( mRootView.VISIBLE );
+        btnDelete.setOnClickListener( this );
+
+        btnReturn = (Button) mRootView.findViewById( R.id.btnReturn );
+        btnReturn.setOnClickListener( this );
         btnEditSave.setChecked( false );
         btnEditSave.setOnClickListener( this );
         imgProfile = (ImageView) mRootView.findViewById( R.id.ivProfile );
@@ -96,7 +121,6 @@ public class Profile extends Fragment implements View.OnClickListener {
             }
         } );
     }
-
 
 
     private void fletchData() {
@@ -170,9 +194,32 @@ public class Profile extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (btnEditSave.isChecked()) {
+        int id = view.getId();
+        if (id == R.id.btnReturn)
+            gotoMainActivity();
+        else if (id == R.id.btnDelete) {
+            //Delete user
+            Log.d("USER_EMAIL", user.getEmailAddress() );
+            String safeEmail = user.getEmailAddress().replace( "@","-" )
+                    .replace( ".","-" );
+
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Warning")
+                    .setMessage("Do you really want to delete this user?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            curUser.removeValue();
+                            Toast.makeText(getContext(), "This user has been deleted successfully!", Toast.LENGTH_SHORT).show();
+                            gotoMainActivity();
+                        }})
+                    .setNegativeButton(android.R.string.no, null).show();
+
+
+        } else if (btnEditSave.isChecked()) {
             setEditEnable();
-        } else {
+        } else if (!btnEditSave.isChecked()) {
             setEditDisable();
             String safeEmail = user.getEmailAddress().
                     replace( "@", "-" ).
@@ -191,6 +238,12 @@ public class Profile extends Fragment implements View.OnClickListener {
 
 
         }
+    }
+
+    private void gotoMainActivity() {
+        getActivity().finishAffinity();
+        Intent intent = new Intent( getContext(), LoginActivity.class );
+        startActivity( intent );
     }
 
     private void imageChooser() {
@@ -243,10 +296,11 @@ public class Profile extends Fragment implements View.OnClickListener {
                 } ).addOnProgressListener( new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = 0.00 + snapshot.getBytesTransferred() / snapshot.getTotalByteCount();
+                        double progressPercent = snapshot.getBytesTransferred() / snapshot.getTotalByteCount();
                         pd.setMessage( "Percentage: " + (int) progressPercent + "%" );
                     }
                 } );
 
     }
+
 }

@@ -132,12 +132,36 @@ app:layout_constraintBaseline_toBaselineOf="@id/tvCountry"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="@dimen/_40dp"
+        android:layout_marginEnd="@dimen/_40dp"
         android:textOn="Save"
         android:textOff="Edit"
-        android:textSize="20sp"
-        android:textAllCaps="false"
-        android:textColor="#f00"/>
+        style="@style/button"
+        />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBaseline_toBaselineOf="@id/btnToggleEditSave"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="@dimen/_40dp"
+        style="@style/button"
+
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBaseline_toBaselineOf="@id/btnToggleEditSave"
+        app:layout_constraintLeft_toRightOf="@id/btnReturn"
+        app:layout_constraintRight_toLeftOf="@id/btnToggleEditSave"
+        style="@style/button"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

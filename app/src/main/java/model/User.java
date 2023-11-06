@@ -30,10 +30,14 @@ public class User {
     }
 
     private roles role;
+    public User(){};
 
     public User(String emailAddress) {
         this.emailAddress = emailAddress;
-        this.role = roles.NormalUser;
+    }
+    public User(String emailAddress, roles role) {
+        this.emailAddress = emailAddress;
+        this.role = role;
     }
 
     public User(String fullName, String emailAddress, languages languagePrefer, int age, String country, int currentTopic, float progress, int start, roles role) {

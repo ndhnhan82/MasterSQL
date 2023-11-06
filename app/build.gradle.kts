@@ -28,6 +28,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildToolsVersion = "33.0.2"
 }
 
 dependencies {
@@ -56,4 +57,5 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     //Circle imageview
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+
 }

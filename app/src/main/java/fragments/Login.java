@@ -26,9 +26,9 @@ public class Login extends Fragment implements View.OnClickListener {
     private TextInputEditText tieEmailAddress, tiePassword;
     TextView tvForgetPassword;
     private View mRootView;
-    public static User user = new User( "your_email@abc.com" );
+    public static User loggedInUser = new User( "your_email@abc.com" );
 
-    private DatabaseReference usersDatabase;
+    private DatabaseReference userRef;
 
 
 
@@ -47,7 +47,7 @@ public class Login extends Fragment implements View.OnClickListener {
         tvForgetPassword = (TextView) mRootView.findViewById( R.id.tvForgetPass );
         btnLogin.setOnClickListener( this );
         tvForgetPassword.setOnClickListener( this );
-        usersDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        userRef = FirebaseDatabase.getInstance().getReference("Users");
     }
 
 
@@ -72,7 +72,7 @@ public class Login extends Fragment implements View.OnClickListener {
                     .addOnCompleteListener( getActivity(), task -> {
                         if (task.isSuccessful()) {
                             gotoMainActivity();
-                            user.setEmailAddress( strEmail );
+                            loggedInUser.setEmailAddress( strEmail );
 
                         } else
                             showAlert( "Your email or password is not correct. PLease try again or register a new user!" );
