@@ -1,4 +1,4 @@
-package com.example.mastersql.model;
+package model;
 
 import android.icu.text.CaseMap;
 

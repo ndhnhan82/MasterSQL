@@ -15,9 +15,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.mastersql.model.Content;
-import com.example.mastersql.model.Courses;
-import com.example.mastersql.model.SubCourse;
+import model.Content;
+import model.Courses;
+import model.SubCourse;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;

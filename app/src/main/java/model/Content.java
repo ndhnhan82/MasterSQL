@@ -1,4 +1,4 @@
-package com.example.mastersql.model;
+package model;
 
 import androidx.annotation.NonNull;
 
@@ -45,6 +45,6 @@ public class Content {
     @NonNull
     @Override
     public String toString() {
-        return "HELLO";
+        return "HELLOO";
     }
 }

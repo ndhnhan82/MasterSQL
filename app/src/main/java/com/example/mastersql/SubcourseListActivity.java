@@ -16,8 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.mastersql.adapter.CourseAdapter;
-import com.example.mastersql.model.Courses;
+import adapter.CourseAdapter;
+import model.Courses;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
