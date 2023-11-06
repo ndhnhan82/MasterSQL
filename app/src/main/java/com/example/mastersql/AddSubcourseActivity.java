@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import model.Content;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,6 +27,8 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
     private EditText editTxtSubCourseTitle, editTxtSubCourseID, edTxtContentHeader, edTxtContentText;
 
     private Button btnAdd;
+
+    private FloatingActionButton fbtnBack;
 
     private String text;
 
@@ -55,6 +59,9 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
 
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
+
+        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack.setOnClickListener(this);
 
 
         editTxtSubCourseTitle = findViewById(R.id.edTxtSubCourseTitle);
@@ -101,6 +108,9 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
 
         if(id == R.id.btnAdd)
             AddSubCourse();
+
+        if(id == R.id.fbtnBack)
+            finish();
 
     }
 

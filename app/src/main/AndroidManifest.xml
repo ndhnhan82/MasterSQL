@@ -35,7 +35,51 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="true" >
+            android:exported="false" >
+
+
+
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ExerciseBasicTerms1"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ExerciseBasicTerms2"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ExerciseBasictTerms3"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ExerciseBasicTerms4"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ExerciseBasicViews5"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ExerciseTools1"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ExerciseTools2"
+            android:screenOrientation="portrait"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,9 +90,18 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ExerciseTools3"
             android:screenOrientation="portrait"
             android:exported="false" />
+
+        <activity
+            android:name=".ExerciseTools4"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+
+
     </application>
 
 </manifest>
