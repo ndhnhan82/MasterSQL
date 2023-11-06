@@ -15,6 +15,21 @@
         android:theme="@style/Theme.MasterSQL"
         tools:targetApi="31">
         <activity
+            android:name=".SubCourseContentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddSubcourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SubcourseListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".model.CoursesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragments.SubCourseList"
+            android:exported="false" />
+        <activity
             android:name=".AddCourse"
             android:exported="false" />
         <activity

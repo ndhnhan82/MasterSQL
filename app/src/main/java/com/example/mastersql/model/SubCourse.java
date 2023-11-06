@@ -1,30 +1,26 @@
 package com.example.mastersql.model;
 
+import android.icu.text.CaseMap;
+
 import androidx.annotation.NonNull;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 
 public class SubCourse {
 
-    private int id;
+
 
     private String SubTitle;
 
     private Content content;
 
-    public SubCourse(int id, String subTitle, Content content) {
-        this.id = id;
+    public SubCourse(String subTitle, Content content) {
+
         SubTitle = subTitle;
         this.content = content;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getSubTitle() {
         return SubTitle;
@@ -45,6 +41,6 @@ public class SubCourse {
     @NonNull
     @Override
     public String toString() {
-        return "Id: " + id + " SubCourse Title: " +SubTitle + " Content: " + content;
+        return " Content: " + content;
     }
 }

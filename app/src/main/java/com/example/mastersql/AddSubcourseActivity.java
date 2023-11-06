@@ -4,37 +4,29 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mastersql.model.Content;
-import com.example.mastersql.model.Courses;
-import com.example.mastersql.model.SubCourse;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.UUID;
 
-public class AddCourse extends AppCompatActivity implements View.OnClickListener {
+public class AddSubcourseActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText editTxtCourseTitle, editTxtSubCourseTitle, editTxtCourseID, editTxtSubCourseID, edTxtContentHeader, edTxtContentText;
+    private EditText editTxtSubCourseTitle, editTxtSubCourseID, edTxtContentHeader, edTxtContentText;
 
     private Button btnAdd;
+
+    private String text;
 
     //For Realtime database
     DatabaseReference courseDatabase, subDatabase;
@@ -50,18 +42,21 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_course);
+        setContentView(R.layout.activity_add_subcourse);
+
 
         initialize();
+
     }
 
     private void initialize() {
 
+        text = getIntent().getStringExtra("course_title");
+
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
-        editTxtCourseTitle = findViewById(R.id.edTxtCourseTitle);
-        editTxtCourseID = findViewById(R.id.edTxtCourseID);
+
         editTxtSubCourseTitle = findViewById(R.id.edTxtSubCourseTitle);
         editTxtSubCourseID = findViewById(R.id.edTxtSubCourseID);
         edTxtContentHeader = findViewById(R.id.edTxtContentHeader);
@@ -71,8 +66,6 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         //Initialization of Objects to Firebase database & Storage
 
         courseDatabase = FirebaseDatabase.getInstance().getReference("Courses");
-
-       subDatabase = FirebaseDatabase.getInstance().getReference("SubCourse");
 
         storage = FirebaseStorage.getInstance();
 
@@ -84,6 +77,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
 
     }
+
 
     private void runActivityResLauncher() {
 
@@ -106,13 +100,11 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         int id = view.getId();
 
         if(id == R.id.btnAdd)
-            AddCourse();
-
+            AddSubCourse();
 
     }
 
-    @SuppressLint("NotConstructor")
-    private void AddCourse() {
+    private void AddSubCourse() {
 
         ArrayList<String> Header = new ArrayList<String>();
         Header.add(edTxtContentHeader.getText().toString());
@@ -120,33 +112,25 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         ArrayList<String> Text = new ArrayList<String>();
         Text.add(edTxtContentText.getText().toString());
 
-       // int subCourseID = Integer.parseInt(editTxtSubCourseID.getText().toString());
-        //int courseID = Integer.parseInt(editTxtCourseID.getText().toString());
+        int subCourseID = Integer.parseInt(editTxtSubCourseID.getText().toString());
 
-        Content content = new Content(1, Header, Text);
+
+        Content content = new Content(2, Header, Text);
 
         // Assuming editTxtSubCourseKey is an EditText where the user inputs the key name for subCourse
         String subCourseKey = editTxtSubCourseTitle.getText().toString();
 
         // Create a HashMap or use a POJO if your SubCourse class is structured to handle this
         HashMap<String, Object> subCourseMap = new HashMap<>();
+        subCourseMap.put("id", subCourseID);
         subCourseMap.put("title", editTxtSubCourseTitle.getText().toString());
         subCourseMap.put("content", content); // Make sure your Content class is structured to convert to a Map
 
-        // Create a HashMap or use a POJO for Courses
-        HashMap<String, Object> courseMap = new HashMap<>();
-        courseMap.put(subCourseKey, subCourseMap); // Use the user-defined key here
+
 
         // Set the value using the course title as the key
-        courseDatabase.child(editTxtCourseTitle.getText().toString()).setValue(courseMap);
-
+        courseDatabase.child(text).child(subCourseKey).setValue(subCourseMap);
 
 
     }
-
-
 }
-
-
-
-

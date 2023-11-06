@@ -4,21 +4,15 @@ import androidx.annotation.NonNull;
 
 public class Courses {
 
-    private int id;
+
     private SubCourse subCourse;
 
-    public Courses(int id, SubCourse subCourse) {
-        this.id = id;
+    public Courses( SubCourse subCourse) {
+
         this.subCourse = subCourse;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public SubCourse getSubCourse() {
         return subCourse;

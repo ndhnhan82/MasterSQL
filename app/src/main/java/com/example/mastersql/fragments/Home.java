@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -19,8 +18,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mastersql.AddCourse;
 import com.example.mastersql.R;
-import com.example.mastersql.model.Courses;
-import com.example.mastersql.model.SubCourse;
+import com.example.mastersql.SubcourseListActivity;
+import com.example.mastersql.adapter.CourseAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,11 +45,14 @@ public class Home extends Fragment implements View.OnClickListener {
 
     // TODO: Rename and change types of parameters
 
+
     private ListView lvCourses;
 
-    private Button btnView;
+    //private Button btnAddCourse2;
 
-    private View mRootView;
+    private FloatingActionButton btnAddCourse;
+
+    private View mRootView, subCourseView;
     private String mParam1;
     private String mParam2;
 
@@ -94,6 +97,7 @@ public class Home extends Fragment implements View.OnClickListener {
 
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -103,6 +107,8 @@ public class Home extends Fragment implements View.OnClickListener {
         }
     }
 
+    //private FragmentHomeBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,6 +116,13 @@ public class Home extends Fragment implements View.OnClickListener {
 
         // Inflate the layout for this fragment
         mRootView = inflater.inflate( R.layout.fragment_home, container, false );
+
+        //binding = ActivityMainBinding.inflate(getLayoutInflater());
+        //setContentView(binding.getRoot());
+
+
+
+
         initialize();
 
         return mRootView;
@@ -119,13 +132,22 @@ public class Home extends Fragment implements View.OnClickListener {
 
         lvCourses = (ListView) mRootView.findViewById(R.id.lvCourses);
 
+        //ArrayList<String> list = new ArrayList<>();
+        //ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.course_list, list);
+        //lvCourses.setAdapter(adapter);
+
         ArrayList<String> list = new ArrayList<>();
-        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.course_list, list);
+        CourseAdapter adapter = new CourseAdapter(getActivity(), list);
         lvCourses.setAdapter(adapter);
 
+        lvCourses.setClickable(true);
 
-        btnView = (Button) mRootView.findViewById(R.id.btnView);
-        btnView.setOnClickListener(this);
+
+        //btnAddCourse = (Button) mRootView.findViewById(R.id.btnAddCourse);
+        //btnAddCourse.setOnClickListener(this);
+
+        btnAddCourse = (FloatingActionButton) mRootView.findViewById(R.id.btnAddCourse);
+        btnAddCourse.setOnClickListener(this);
 
 
 
@@ -167,6 +189,21 @@ public class Home extends Fragment implements View.OnClickListener {
 
         runActivityResLauncher();
 
+        lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent( getContext(), SubcourseListActivity.class);
+
+
+                String text =  adapterView.getItemAtPosition(i).toString();;
+
+
+                intent.putExtra("item_text", text);
+
+                startActivity( intent );
+            }
+        });
+
 
     }
 
@@ -191,8 +228,9 @@ public class Home extends Fragment implements View.OnClickListener {
 
         int id = view.getId();
 
-        if(id == R.id.btnView)
+        if(id == R.id.btnAddCourse)
             view();
+
 
     }
 
@@ -202,9 +240,6 @@ public class Home extends Fragment implements View.OnClickListener {
         startActivity( intent );
         getActivity().finishAffinity();
     }
-
-
-
 
 
 
