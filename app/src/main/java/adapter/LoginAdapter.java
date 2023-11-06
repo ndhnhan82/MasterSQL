@@ -1,4 +1,4 @@
-package com.example.mastersql.adapter;
+package adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.mastersql.fragments.Login;
-import com.example.mastersql.fragments.Register;
+import fragments.Login;
+import fragments.Register;
 
 public class LoginAdapter extends FragmentStatePagerAdapter {
     private final String[] listTab = {"Login", "Register"};
