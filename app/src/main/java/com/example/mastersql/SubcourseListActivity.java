@@ -219,7 +219,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
         //showAlert("The text value is: " + text);
 
-        Intent intent = new Intent( SubcourseListActivity.this, AddCourse.class );
+        Intent intent = new Intent( SubcourseListActivity.this, AddSubcourseActivity.class );
 
 
         intent.putExtra("course_title", text);
