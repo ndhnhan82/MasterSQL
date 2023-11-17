@@ -13,31 +13,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:paddingTop="20dp"
-        >
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
 
         <TextView
             android:id="@+id/tvCourseTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="LIST OF COURSES"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:gravity="center"
             android:layout_marginStart="70dp"
-            />
+            android:gravity="center"
+            android:text="LIST OF COURSES"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageView
             android:id="@+id/btnAddCourse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:src="@android:drawable/ic_input_add"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
             android:layout_marginStart="40dp"
+            android:clickable="true"
             android:focusable="true"
-            android:contentDescription="TODO" />
+            android:src="@drawable/plus" />
 
 
     </LinearLayout>
@@ -49,24 +46,16 @@
 
         <ListView
             android:id="@+id/lvCourses"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:layout_marginTop="30dp"
-            tools:listitem="@layout/course_list"
-            android:backgroundTint="#00000000"
-            android:divider="#00000000"
-            android:dividerHeight="10.0sp"
-            android:headerDividersEnabled="true"
-            android:paddingTop="20dp"
             android:layout_gravity="center"
-            >
-
-            <!--style="@style/editTextAddCourse"-->
-
-        </ListView>
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#00000000"
+            android:dividerHeight="5sp"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/course_list" />
     </LinearLayout>
-
 
 
 </LinearLayout>

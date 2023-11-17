@@ -1,22 +1,15 @@
 package com.example.mastersql;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.internal.CheckableGroup;
-
-import java.util.Set;
 
 public class ExerciseBasicTerms1 extends AppCompatActivity implements View.OnClickListener {
     Button btnCancel, btnNext, btTRIAL;
@@ -45,7 +38,7 @@ public class ExerciseBasicTerms1 extends AppCompatActivity implements View.OnCli
         ckSimple.setOnClickListener(this);
         ckSequential = findViewById(R.id.ckSequential);
         ckSequential.setOnClickListener(this);
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
     }
     @Override

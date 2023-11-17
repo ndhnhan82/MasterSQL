@@ -60,7 +60,7 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
 
         headerTitle = findViewById(R.id.tvSubCourseHeader);
 
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
 
 

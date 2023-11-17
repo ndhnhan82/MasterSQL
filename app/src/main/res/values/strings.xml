@@ -88,5 +88,12 @@
     <string name="which_sql_tool_would_you_use_for_online_transactions">Which SQL tool would you use for online transactions?</string>
     <string name="which_sql_tool_would_you_use_for_mobile_applications">Which SQL tool would you use for mobile applications?</string>
     <string name="done">Done</string>
+    <string name="user_achievement">User Achievement</string>
+    <string name="progress_tracking">Progress Tracking</string>
+    <string name="quiz_management">Quiz Management</string>
+    <string name="course_management">Course Management</string>
+    <string name="user_management">User Management</string>
+    <string name="admin_dashboard">Admin dashboard</string>
+    <string name="quit">Quit</string>
 
 </resources>

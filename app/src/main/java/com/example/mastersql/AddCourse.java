@@ -1,36 +1,27 @@
 package com.example.mastersql;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
-import fragments.Home;
-import model.Content;
-import model.Courses;
-import model.SubCourse;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.UUID;
+
+import model.Content;
 
 public class AddCourse extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,7 +29,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
     private Button btnAdd;
 
-    private FloatingActionButton fbtnBack;
+    private ImageView ivBack;
 
     //For Realtime database
     DatabaseReference courseDatabase, subDatabase;
@@ -64,8 +55,8 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
-        fbtnBack = findViewById(R.id.fbtnBack);
-        fbtnBack.setOnClickListener(this);
+        ivBack = findViewById(R.id.ivBack );
+        ivBack.setOnClickListener(this);
 
         editTxtCourseTitle = findViewById(R.id.edTxtCourseTitle);
         editTxtCourseID = findViewById(R.id.edTxtCourseID);
@@ -115,7 +106,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         if(id == R.id.btnAdd)
             AddCourse();
 
-        if(id == R.id.fbtnBack)
+        if(id == R.id.ivBack)
             finish();
 
 
