@@ -27,11 +27,7 @@ public class Login extends Fragment implements View.OnClickListener {
     TextView tvForgetPassword;
     private View mRootView;
     public static User loggedInUser = new User( "your_email@abc.com" );
-
     private DatabaseReference userRef;
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,7 +35,6 @@ public class Login extends Fragment implements View.OnClickListener {
         initialize();
         return mRootView;
     }
-
     private void initialize() {
         tieEmailAddress = (TextInputEditText) mRootView.findViewById( R.id.tieEmailAddress );
         tiePassword = (TextInputEditText) mRootView.findViewById( R.id.tiePassword );
@@ -49,9 +44,6 @@ public class Login extends Fragment implements View.OnClickListener {
         tvForgetPassword.setOnClickListener( this );
         userRef = FirebaseDatabase.getInstance().getReference("Users");
     }
-
-
-
     @Override
     public void onClick(View view) {
 // Initialize Firebase Auth

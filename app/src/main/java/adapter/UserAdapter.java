@@ -13,15 +13,15 @@ import com.example.mastersql.R;
 
 import java.util.ArrayList;
 
-import fragments.Admin;
+import fragments.UserManagement;
 import model.User;
 
 public class UserAdapter extends ArrayAdapter<User> {
-    Admin context;
+    UserManagement context;
     int idLayout;
     ArrayList<User> arrayListUser;
 
-    public UserAdapter(@NonNull Admin context, int idLayout, ArrayList<User> arrayListUser) {
+    public UserAdapter(@NonNull UserManagement context, int idLayout, ArrayList<User> arrayListUser) {
         super( context.getContext(), idLayout, arrayListUser );
         this.context = context;
         this.idLayout = idLayout;

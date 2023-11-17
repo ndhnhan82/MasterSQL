@@ -35,7 +35,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import fragments.Admin;
+import fragments.AdminDashboard;
 import fragments.Home;
 import fragments.Profile;
 import model.User;
@@ -166,10 +166,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_users) {
             if (mCurrentFragment != FRAGMENT_ADMIN) {
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList( "USER_LIST", arrListUsers );
-                Admin admin = new Admin();
-                admin.setArguments( bundle );
-                replaceFragment( admin );
+//                bundle.putStringArrayList( "USER_LIST", arrListUsers );
+                AdminDashboard adminDashboard = new AdminDashboard();
+                adminDashboard.setArguments( bundle );
+                replaceFragment( adminDashboard );
                 mCurrentFragment = FRAGMENT_ADMIN;
             }
 
@@ -179,6 +179,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.finish();
             Intent intent = new Intent( this, SplashActivity.class );
             startActivity( intent );
+        }else if (id == R.id.nav_quit){
+            this.finish();
+            getApplication().notifyAll();
         }
         drawerLayout.closeDrawers();
 

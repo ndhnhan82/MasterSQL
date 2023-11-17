@@ -26,7 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.mastersql.LoginActivity;
+import com.example.mastersql.MainActivity;
 import com.example.mastersql.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,19 +55,19 @@ public class Profile extends Fragment implements View.OnClickListener {
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference curUser;
+    private DatabaseReference userDatabase;
     private Uri selectedImageUri;
     private ArrayAdapter<CharSequence> adapter;
 
-    private User user;
+    private User currUser;
 
     public Profile() {
     }
 
     ;
 
-    public Profile(User user) {
-        this.user = user;
+    public Profile(User currUser) {
+        this.currUser = currUser;
     }
 
     @Nullable
@@ -80,7 +80,7 @@ public class Profile extends Fragment implements View.OnClickListener {
 
     private void initialize() {
 
-        String safeEmail = user.getEmailAddress()
+        String safeEmail = currUser.getEmailAddress()
                 .replace( "@", "-" )
                 .replace( ".", "-" );
 
@@ -92,11 +92,11 @@ public class Profile extends Fragment implements View.OnClickListener {
 
         iniSpLanguage();
 
-        tvEmail.setText( user.getEmailAddress() );
+        tvEmail.setText( currUser.getEmailAddress() );
 
         btnEditSave = (ToggleButton) mRootView.findViewById( R.id.btnToggleEditSave );
         btnDelete = (Button) mRootView.findViewById( R.id.btnDelete );
-        if (user.getRole().toString().equals( "NormalUser" ))
+        if (currUser.getRole().toString().equals( "NormalUser" ))
             btnDelete.setVisibility( mRootView.INVISIBLE );
         else
             btnDelete.setVisibility( mRootView.VISIBLE );
@@ -110,7 +110,7 @@ public class Profile extends Fragment implements View.OnClickListener {
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        curUser = firebaseDatabase.getReference( "Users/" + safeEmail );
+        userDatabase = firebaseDatabase.getReference( "Users/" + safeEmail );
         setEditDisable();
         refreshProfilePicture();
         fletchData();
@@ -124,7 +124,7 @@ public class Profile extends Fragment implements View.OnClickListener {
 
 
     private void fletchData() {
-        curUser.addValueEventListener( new ValueEventListener() {
+        userDatabase.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child( "fullName" ).getValue() != null)
@@ -151,14 +151,12 @@ public class Profile extends Fragment implements View.OnClickListener {
                 R.array.languages_array,
                 android.R.layout.simple_spinner_item
         );
-// Specify the layout to use when the list of choices appears.
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-// Apply the adapter to the spinner.
         spLanguage.setAdapter( adapter );
     }
 
     private void refreshProfilePicture() {
-        String safeEmail = user.getEmailAddress();
+        String safeEmail = currUser.getEmailAddress();
         safeEmail = safeEmail.replace( "@", "-" );
         safeEmail = safeEmail.replace( ".", "-" );
         String pathString = "Images/" + safeEmail + ".jpg";
@@ -199,8 +197,8 @@ public class Profile extends Fragment implements View.OnClickListener {
             gotoMainActivity();
         else if (id == R.id.btnDelete) {
             //Delete user
-            Log.d("USER_EMAIL", user.getEmailAddress() );
-            String safeEmail = user.getEmailAddress().replace( "@","-" )
+            Log.d("USER_EMAIL", currUser.getEmailAddress() );
+            String safeEmail = currUser.getEmailAddress().replace( "@","-" )
                     .replace( ".","-" );
 
             new AlertDialog.Builder(getContext())
@@ -210,7 +208,7 @@ public class Profile extends Fragment implements View.OnClickListener {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            curUser.removeValue();
+                            userDatabase.removeValue();
                             Toast.makeText(getContext(), "This user has been deleted successfully!", Toast.LENGTH_SHORT).show();
                             gotoMainActivity();
                         }})
@@ -221,20 +219,20 @@ public class Profile extends Fragment implements View.OnClickListener {
             setEditEnable();
         } else if (!btnEditSave.isChecked()) {
             setEditDisable();
-            String safeEmail = user.getEmailAddress().
+            String safeEmail = currUser.getEmailAddress().
                     replace( "@", "-" ).
                     replace( ".", "-" );
 
-            user.setFullName( edName.getText().toString() );
-            user.setAge( Integer.valueOf( edAge.getText().toString() ) );
-            user.setCountry( edCountry.getText().toString() );
+            currUser.setFullName( edName.getText().toString() );
+            currUser.setAge( Integer.valueOf( edAge.getText().toString() ) );
+            currUser.setCountry( edCountry.getText().toString() );
             if (spLanguage.getSelectedItemId() == 0)
-                user.setLanguagePrefer( User.languages.English );
+                currUser.setLanguagePrefer( User.languages.English );
             else
-                user.setLanguagePrefer( User.languages.French );
+                currUser.setLanguagePrefer( User.languages.French );
 
             DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference( "Users" );
-            usersDatabase.child( safeEmail ).setValue( user );
+            usersDatabase.child( safeEmail ).setValue( currUser );
 
 
         }
@@ -242,7 +240,7 @@ public class Profile extends Fragment implements View.OnClickListener {
 
     private void gotoMainActivity() {
         getActivity().finishAffinity();
-        Intent intent = new Intent( getContext(), LoginActivity.class );
+        Intent intent = new Intent( getContext(), MainActivity.class );
         startActivity( intent );
     }
 
@@ -274,7 +272,7 @@ public class Profile extends Fragment implements View.OnClickListener {
         pd.setTitle( "Uploading image..." );
         pd.show();
 
-        String safeEmail = user.getEmailAddress();
+        String safeEmail = currUser.getEmailAddress();
         safeEmail = safeEmail.replace( "@", "-" );
         safeEmail = safeEmail.replace( ".", "-" );
 
