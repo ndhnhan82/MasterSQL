@@ -3,44 +3,53 @@ package model;
 import androidx.annotation.NonNull;
 
 public class User {
-    public enum languages {English, French};
-    public enum roles{Admin, NormalUser}
+//    public enum languages {English, French}
+//
+//    ;
+//
+//    public enum roles {Admin, NormalUser}
+
 
     @NonNull
     @Override
     public String toString() {
-        return "Email: "+emailAddress+", name: "+fullName;
+        return fullName + ", " +emailAddress+ ", " +languagePrefer+ ", " +age+ ", " +country+ ", " +role;
     }
 
     private String fullName;
     private String emailAddress;
-    private languages languagePrefer;
+    private String languagePrefer;
     private int age;
     private String country;
     private int currentTopic;
     private float progress;
     private int start;
+    private String role;
 
-    public roles getRole() {
+
+    public String getRole() {
         return role;
     }
 
-    public void setRole(roles role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    private roles role;
-    public User(){};
+    public User() {
+    }
+
+    ;
 
     public User(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-    public User(String emailAddress, roles role) {
+
+    public User(String emailAddress, String role) {
         this.emailAddress = emailAddress;
         this.role = role;
     }
 
-    public User(String fullName, String emailAddress, languages languagePrefer, int age, String country, int currentTopic, float progress, int start, roles role) {
+    public User(String fullName, String emailAddress, String languagePrefer, int age, String country, int currentTopic, float progress, int start) {
         this.fullName = fullName;
         this.emailAddress = emailAddress;
         this.languagePrefer = languagePrefer;
@@ -49,7 +58,7 @@ public class User {
         this.currentTopic = currentTopic;
         this.progress = progress;
         this.start = start;
-        this.role = roles.NormalUser;
+        this.role = "normalUser";
     }
 
     public float getProgress() {
@@ -67,6 +76,7 @@ public class User {
     public void setStart(int start) {
         this.start = start;
     }
+
     public int getCurrentTopic() {
         return currentTopic;
     }
@@ -107,11 +117,11 @@ public class User {
         this.country = country;
     }
 
-    public languages getLanguagePrefer() {
+    public String getLanguagePrefer() {
         return languagePrefer;
     }
 
-    public void setLanguagePrefer(languages languagePrefer) {
+    public void setLanguagePrefer(String languagePrefer) {
         this.languagePrefer = languagePrefer;
     }
 }

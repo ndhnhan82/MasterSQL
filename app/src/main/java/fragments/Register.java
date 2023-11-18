@@ -78,11 +78,11 @@ public class Register extends Fragment implements View.OnClickListener {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
                                 loggedInUser.setEmailAddress( strEmail );
-                                loggedInUser.setLanguagePrefer( User.languages.English );
+                                loggedInUser.setLanguagePrefer( "English" );
                                 loggedInUser.setAge( 0 );
                                 loggedInUser.setCountry( "" );
                                 loggedInUser.setFullName("\"NO NAME\"");
-                                loggedInUser.setRole( User.roles.NormalUser );
+                                loggedInUser.setRole( "NormalUser" );
 
                                 addUpdateUser( loggedInUser );
                                 Intent intent = new Intent( getActivity(), MainActivity.class );

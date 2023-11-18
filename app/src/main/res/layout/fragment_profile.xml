@@ -152,16 +152,4 @@ app:layout_constraintBaseline_toBaselineOf="@id/tvCountry"
         style="@style/button"
 
         />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:textAllCaps="false"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintBaseline_toBaselineOf="@id/btnToggleEditSave"
-        app:layout_constraintLeft_toRightOf="@id/btnReturn"
-        app:layout_constraintRight_toLeftOf="@id/btnToggleEditSave"
-        style="@style/button"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>
