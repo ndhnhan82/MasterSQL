@@ -26,8 +26,9 @@ public class Login extends Fragment implements View.OnClickListener {
     private TextInputEditText tieEmailAddress, tiePassword;
     TextView tvForgetPassword;
     private View mRootView;
-    public static User loggedInUser = new User( "your_email@abc.com" );
+    public static User loggedInUser = new User();
     private DatabaseReference userRef;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class Login extends Fragment implements View.OnClickListener {
         initialize();
         return mRootView;
     }
+
     private void initialize() {
         tieEmailAddress = (TextInputEditText) mRootView.findViewById( R.id.tieEmailAddress );
         tiePassword = (TextInputEditText) mRootView.findViewById( R.id.tiePassword );
@@ -42,14 +44,17 @@ public class Login extends Fragment implements View.OnClickListener {
         tvForgetPassword = (TextView) mRootView.findViewById( R.id.tvForgetPass );
         btnLogin.setOnClickListener( this );
         tvForgetPassword.setOnClickListener( this );
-        userRef = FirebaseDatabase.getInstance().getReference("Users");
+        userRef = FirebaseDatabase.getInstance().getReference( "Users" );
     }
+
     @Override
     public void onClick(View view) {
 // Initialize Firebase Auth
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String strEmail = tieEmailAddress.getText().toString().trim();
         String strPassword = tiePassword.getText().toString();
+        String safeEmail = strEmail.replace( "@", "-" )
+                .replace( ".", "-" );
 
         if (strEmail.isEmpty() || strPassword.isEmpty()) {
             showAlert( "Your email and password cannot be empty. Please reenter and try again!" );
@@ -65,13 +70,11 @@ public class Login extends Fragment implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             gotoMainActivity();
                             loggedInUser.setEmailAddress( strEmail );
-
                         } else
                             showAlert( "Your email or password is not correct. PLease try again or register a new user!" );
                     } );
         }
     }
-
 
 
     private void gotoMainActivity() {
@@ -91,5 +94,7 @@ public class Login extends Fragment implements View.OnClickListener {
                 .show();
 
     }
+
+
 
 }

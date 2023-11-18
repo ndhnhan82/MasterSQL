@@ -3,11 +3,9 @@ package fragments;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -49,7 +46,7 @@ public class Profile extends Fragment implements View.OnClickListener {
     private EditText edName, edAge, edCountry;
     private Spinner spLanguage;
     private ToggleButton btnEditSave;
-    private Button btnDelete, btnReturn;
+    private Button btnReturn;
     private ImageView imgProfile;
     private int SELECT_PICTURE = 200;
     private FirebaseStorage firebaseStorage;
@@ -80,6 +77,7 @@ public class Profile extends Fragment implements View.OnClickListener {
 
     private void initialize() {
 
+
         String safeEmail = currUser.getEmailAddress()
                 .replace( "@", "-" )
                 .replace( ".", "-" );
@@ -95,13 +93,6 @@ public class Profile extends Fragment implements View.OnClickListener {
         tvEmail.setText( currUser.getEmailAddress() );
 
         btnEditSave = (ToggleButton) mRootView.findViewById( R.id.btnToggleEditSave );
-        btnDelete = (Button) mRootView.findViewById( R.id.btnDelete );
-        if (currUser.getRole().toString().equals( "NormalUser" ))
-            btnDelete.setVisibility( mRootView.INVISIBLE );
-        else
-            btnDelete.setVisibility( mRootView.VISIBLE );
-        btnDelete.setOnClickListener( this );
-
         btnReturn = (Button) mRootView.findViewById( R.id.btnReturn );
         btnReturn.setOnClickListener( this );
         btnEditSave.setChecked( false );
@@ -195,7 +186,7 @@ public class Profile extends Fragment implements View.OnClickListener {
         int id = view.getId();
         if (id == R.id.btnReturn)
             gotoMainActivity();
-        else if (id == R.id.btnDelete) {
+        /*else if (id == R.id.btnDelete) {
             //Delete user
             Log.d("USER_EMAIL", currUser.getEmailAddress() );
             String safeEmail = currUser.getEmailAddress().replace( "@","-" )
@@ -215,7 +206,7 @@ public class Profile extends Fragment implements View.OnClickListener {
                     .setNegativeButton(android.R.string.no, null).show();
 
 
-        } else if (btnEditSave.isChecked()) {
+        }*/ else if (btnEditSave.isChecked()) {
             setEditEnable();
         } else if (!btnEditSave.isChecked()) {
             setEditDisable();
@@ -227,9 +218,9 @@ public class Profile extends Fragment implements View.OnClickListener {
             currUser.setAge( Integer.valueOf( edAge.getText().toString() ) );
             currUser.setCountry( edCountry.getText().toString() );
             if (spLanguage.getSelectedItemId() == 0)
-                currUser.setLanguagePrefer( User.languages.English );
+                currUser.setLanguagePrefer( "English" );
             else
-                currUser.setLanguagePrefer( User.languages.French );
+                currUser.setLanguagePrefer("French" );
 
             DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference( "Users" );
             usersDatabase.child( safeEmail ).setValue( currUser );

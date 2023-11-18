@@ -1,41 +1,82 @@
 package adapter;
 
+import static model.UserManagement.refreshProfilePicture;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.mastersql.R;
 
 import java.util.ArrayList;
 
-import fragments.UserManagement;
 import model.User;
 
-public class UserAdapter extends ArrayAdapter<User> {
-    UserManagement context;
-    int idLayout;
-    ArrayList<User> arrayListUser;
+public class UserAdapter extends BaseAdapter {
+    private Context context;
+    private ArrayList<User> usersList;
+    private User user;
+    public UserAdapter() {
 
-    public UserAdapter(@NonNull UserManagement context, int idLayout, ArrayList<User> arrayListUser) {
-        super( context.getContext(), idLayout, arrayListUser );
+    }
+    public UserAdapter(Context context, ArrayList<User> usersList) {
         this.context = context;
-        this.idLayout = idLayout;
-        this.arrayListUser = arrayListUser;
+        this.usersList = usersList;
+
+    }
+    @Override
+    public int getCount() {
+        // the number of items in your list view
+        return usersList.size();
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater layoutInflater = context.getLayoutInflater();
-        convertView = layoutInflater.inflate( idLayout, parent );
-        User user = arrayListUser.get( position );
-        TextView tvUserName = (TextView) convertView.findViewById( R.id.tvName);
-        tvUserName.setText( user.getFullName() );
-        return convertView;
+    public Object getItem(int i) {
+        return usersList.get( i );
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup viewGroup) {
+        //1- perform the required declaration
+        View oneItem;
+        ImageView imPhoto, imDelete;
+        TextView tvFullName, tvEmail;
+        //2- convert the layout one_item.xml to the corresponding java view objects
+        //in order to manipulate different widgets -This conversion is called  Layout inflation
+        LayoutInflater layoutInf = LayoutInflater.from( context );
+        // change xml to java objects
+        oneItem = layoutInf.inflate( R.layout.one_user_item, viewGroup, false );
+
+        //3- to reference the widgets using findViewById inside to one_item.xml
+        tvFullName = oneItem.findViewById( R.id.tvUserNameItem );
+        tvEmail = oneItem.findViewById( R.id.tvEmailAddressItem );
+        imPhoto = oneItem.findViewById( R.id.imPhoto );
+        imDelete = oneItem.findViewById( R.id.imDelete );
+
+        //4- to populate the widgets
+        user = (User) getItem( position );
+        refreshProfilePicture( context,user,imPhoto);
+        tvFullName.setText( user.getFullName() );
+        tvEmail.setText( user.getEmailAddress() );
+
+//        String photoName = user.getPhoto();
+
+        imDelete.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                user = (User) getItem( position );
+            }
+        } );
+        //5- to return the data
+        return oneItem;
     }
 }

@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="fragments.UserManagement"
+    tools:context="fragments.AdminManagement"
     android:layout_gravity="fill_horizontal">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ListView
         android:id="@+id/lvUser"
+        android:listSelector="@drawable/item_selector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
