@@ -1,6 +1,7 @@
 package fragments;
 
 import static android.app.Activity.RESULT_OK;
+import static model.DatabaseManagement.refreshProfilePicture;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.example.mastersql.MainActivity;
 import com.example.mastersql.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,10 +49,8 @@ public class Profile extends Fragment implements View.OnClickListener {
     private Button btnReturn;
     private ImageView imgProfile;
     private int SELECT_PICTURE = 200;
-    private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference userDatabase;
+    private DatabaseReference userRef;
     private Uri selectedImageUri;
     private ArrayAdapter<CharSequence> adapter;
 
@@ -98,12 +96,10 @@ public class Profile extends Fragment implements View.OnClickListener {
         btnEditSave.setChecked( false );
         btnEditSave.setOnClickListener( this );
         imgProfile = (ImageView) mRootView.findViewById( R.id.ivProfile );
-        firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        userDatabase = firebaseDatabase.getReference( "Users/" + safeEmail );
+        storageReference = FirebaseStorage.getInstance().getReference();
+        userRef = FirebaseDatabase.getInstance().getReference( "Users/" + safeEmail );
         setEditDisable();
-        refreshProfilePicture();
+        refreshProfilePicture(getContext(),safeEmail,imgProfile);
         fletchData();
         imgProfile.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -112,21 +108,16 @@ public class Profile extends Fragment implements View.OnClickListener {
             }
         } );
     }
-
-
     private void fletchData() {
-        userDatabase.addValueEventListener( new ValueEventListener() {
+        userRef.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child( "fullName" ).getValue() != null)
-                    edName.setText( snapshot.child( "fullName" ).getValue().toString() );
-                edAge.setText( snapshot.child( "age" ).getValue().toString() );
-                if (snapshot.child( "country" ).getValue() != null)
-                    edCountry.setText( snapshot.child( "country" ).getValue().toString() );
-                int selection = (snapshot.child( "languagePrefer" )
-                        .getValue().equals( "English" )) ? 0 : 1;
+                currUser = (User) snapshot.getValue( User.class);
+                edName.setText( currUser.getFullName() );
+                edAge.setText( String.valueOf( currUser.getAge() ));
+                    edCountry.setText( currUser.getCountry() );
+                int selection = (currUser.getLanguagePrefer().equals( "English" )) ? 0 : 1;
                 spLanguage.setSelection( selection );
-
             }
 
             @Override
@@ -146,26 +137,6 @@ public class Profile extends Fragment implements View.OnClickListener {
         spLanguage.setAdapter( adapter );
     }
 
-    private void refreshProfilePicture() {
-        String safeEmail = currUser.getEmailAddress();
-        safeEmail = safeEmail.replace( "@", "-" );
-        safeEmail = safeEmail.replace( ".", "-" );
-        String pathString = "Images/" + safeEmail + ".jpg";
-        // Create a reference with an initial file path and name
-        storageReference.child( pathString ).getDownloadUrl().addOnSuccessListener( new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with( getContext() ).load( uri ).into( imgProfile );
-
-            }
-        } ).addOnFailureListener( new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-                Toast.makeText( getContext(), "Cannot loading image!", Toast.LENGTH_SHORT ).show();
-            }
-        } );
-    }
 
     private void setEditEnable() {
         edAge.setEnabled( true );
@@ -186,27 +157,7 @@ public class Profile extends Fragment implements View.OnClickListener {
         int id = view.getId();
         if (id == R.id.btnReturn)
             gotoMainActivity();
-        /*else if (id == R.id.btnDelete) {
-            //Delete user
-            Log.d("USER_EMAIL", currUser.getEmailAddress() );
-            String safeEmail = currUser.getEmailAddress().replace( "@","-" )
-                    .replace( ".","-" );
-
-            new AlertDialog.Builder(getContext())
-                    .setTitle("Warning")
-                    .setMessage("Do you really want to delete this user?")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            userDatabase.removeValue();
-                            Toast.makeText(getContext(), "This user has been deleted successfully!", Toast.LENGTH_SHORT).show();
-                            gotoMainActivity();
-                        }})
-                    .setNegativeButton(android.R.string.no, null).show();
-
-
-        }*/ else if (btnEditSave.isChecked()) {
+        else if (btnEditSave.isChecked()) {
             setEditEnable();
         } else if (!btnEditSave.isChecked()) {
             setEditDisable();
@@ -225,7 +176,6 @@ public class Profile extends Fragment implements View.OnClickListener {
             DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference( "Users" );
             usersDatabase.child( safeEmail ).setValue( currUser );
 
-
         }
     }
 
@@ -239,9 +189,6 @@ public class Profile extends Fragment implements View.OnClickListener {
         Intent i = new Intent();
         i.setType( "image/*" );
         i.setAction( Intent.ACTION_GET_CONTENT );
-
-        // pass the constant to compare it
-        // with the returned requestCode
         startActivityForResult( Intent.createChooser( i, "Select Picture" ), SELECT_PICTURE );
     }
 
@@ -249,10 +196,7 @@ public class Profile extends Fragment implements View.OnClickListener {
         super.onActivityResult( requestCode, resultCode, data );
 
         if (resultCode == RESULT_OK && requestCode == SELECT_PICTURE && data != null && data.getData() != null) {
-
-            // Get the url of the image from data
             selectedImageUri = data.getData();
-            // update the preview image in the layout
             imgProfile.setImageURI( selectedImageUri );
             uploadPicture();
         }
@@ -262,12 +206,9 @@ public class Profile extends Fragment implements View.OnClickListener {
         final ProgressDialog pd = new ProgressDialog( getContext() );
         pd.setTitle( "Uploading image..." );
         pd.show();
-
         String safeEmail = currUser.getEmailAddress();
         safeEmail = safeEmail.replace( "@", "-" );
         safeEmail = safeEmail.replace( ".", "-" );
-
-
         StorageReference mountainsRef = storageReference.child( "Images/" + safeEmail + ".jpg" );
         mountainsRef.putFile( selectedImageUri ).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override

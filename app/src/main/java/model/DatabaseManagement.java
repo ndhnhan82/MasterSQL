@@ -22,11 +22,54 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class UserManagement {
-    public interface UserListCallback {
-        void onUserListUpdated(ArrayList<User> userList);
+public class DatabaseManagement {
 
-        void onFailure(Exception e);
+    public static void getCourseList(final CourseListCallback callback){
+        DatabaseReference courseRef = FirebaseDatabase.getInstance().getReference("Courses");
+        ArrayList<Courses> arrListCourse = new ArrayList<>();
+
+        courseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Courses courses = snapshot.getValue(Courses.class);
+                arrListCourse.add(courses);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // Handle changes if needed
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                // Handle removal if needed
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // Handle move if needed
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error if needed
+                callback.onFailure(error.toException());
+            }
+        });
+
+        // After all child events are processed, notify the callback
+        courseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                callback.onCourseListUpdated( arrListCourse);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error if needed
+                callback.onFailure(error.toException());
+            }
+        });
     }
 
     public static void getUserList(final UserListCallback callback) {
@@ -76,10 +119,8 @@ public class UserManagement {
             }
         });
     }
-
-    public static void refreshProfilePicture(Context context, User user, ImageView imgProfile) {
-        String safeEmail = user.getEmailAddress();
-        safeEmail = safeEmail.replace( "@", "-" );
+    public static void refreshProfilePicture(Context context, String email, ImageView imgProfile) {
+        String safeEmail = email.replace( "@", "-" );
         safeEmail = safeEmail.replace( ".", "-" );
         String pathString = "Images/" + safeEmail + ".jpg";
         // Create a reference with an initial file path and name
@@ -98,4 +139,16 @@ public class UserManagement {
             }
         } );
     }
+
+    public interface UserListCallback {
+        void onUserListUpdated(ArrayList<User> userList);
+
+        void onFailure(Exception e);
+    }
+    public interface CourseListCallback {
+        void onCourseListUpdated(ArrayList<Courses> courseList);
+
+        void onFailure(Exception e);
+    }
+
 }

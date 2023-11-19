@@ -10,7 +10,7 @@
         android:id="@+id/imgLogin"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:src="@mipmap/logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
         android:textColor="#117FD6"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/tvLogin"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         />
 
     <com.google.android.material.tabs.TabLayout
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tvPolicy"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         app:tabMode="auto"
         app:tabTextColor="@android:color/holo_blue_dark"
         app:tabRippleColor="@android:color/holo_blue_light"
