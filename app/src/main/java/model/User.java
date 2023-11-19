@@ -42,6 +42,9 @@ public class User {
 
     public User(String emailAddress) {
         this.emailAddress = emailAddress;
+        this.fullName = "NO NAME";
+        this.role = "NormalUser";
+        this.languagePrefer = "English";
     }
 
     public User(String emailAddress, String role) {
@@ -49,7 +52,7 @@ public class User {
         this.role = role;
     }
 
-    public User(String fullName, String emailAddress, String languagePrefer, int age, String country, int currentTopic, float progress, int start) {
+    public User(String fullName, String emailAddress, String languagePrefer, int age, String country, int currentTopic, float progress, int start, String role) {
         this.fullName = fullName;
         this.emailAddress = emailAddress;
         this.languagePrefer = languagePrefer;
@@ -58,7 +61,7 @@ public class User {
         this.currentTopic = currentTopic;
         this.progress = progress;
         this.start = start;
-        this.role = "normalUser";
+        this.role = role;
     }
 
     public float getProgress() {

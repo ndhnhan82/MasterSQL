@@ -53,9 +53,9 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
     }
 
     private void launchUserManagementFragment() {
-        AdminManagement adminManagementFragment = new AdminManagement();
+        UserManagement userManagementFragment = new UserManagement();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace( R.id.content_frame, adminManagementFragment )
+        fragmentTransaction.replace( R.id.content_frame, userManagementFragment )
                 .addToBackStack( null )
                 .commit();
     }

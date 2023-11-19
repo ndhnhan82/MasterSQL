@@ -17,17 +17,11 @@ import com.example.mastersql.MainActivity;
 import com.example.mastersql.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import model.User;
 
 public class Login extends Fragment implements View.OnClickListener {
     private TextInputEditText tieEmailAddress, tiePassword;
     TextView tvForgetPassword;
     private View mRootView;
-    public static User loggedInUser = new User();
-    private DatabaseReference userRef;
 
     @Nullable
     @Override
@@ -44,12 +38,10 @@ public class Login extends Fragment implements View.OnClickListener {
         tvForgetPassword = (TextView) mRootView.findViewById( R.id.tvForgetPass );
         btnLogin.setOnClickListener( this );
         tvForgetPassword.setOnClickListener( this );
-        userRef = FirebaseDatabase.getInstance().getReference( "Users" );
     }
 
     @Override
     public void onClick(View view) {
-// Initialize Firebase Auth
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String strEmail = tieEmailAddress.getText().toString().trim();
         String strPassword = tiePassword.getText().toString();
@@ -62,14 +54,14 @@ public class Login extends Fragment implements View.OnClickListener {
         }
         int id = view.getId();
         if (id == R.id.tvForgetPass) {
-            showAlert( "An email will be sent to you shortly! " );
+            showAlert( "An email will be sent to you shortly!" );
+
             mAuth.sendPasswordResetEmail( strEmail );
         } else if (id == R.id.btnLogin) {
             mAuth.signInWithEmailAndPassword( strEmail, strPassword )
                     .addOnCompleteListener( getActivity(), task -> {
                         if (task.isSuccessful()) {
                             gotoMainActivity();
-                            loggedInUser.setEmailAddress( strEmail );
                         } else
                             showAlert( "Your email or password is not correct. PLease try again or register a new user!" );
                     } );
@@ -85,16 +77,13 @@ public class Login extends Fragment implements View.OnClickListener {
 
     private void showAlert(String message) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder( getContext() );
-
-        builder.setTitle( "Notification" )
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder( getContext() );
+        alertDialog.setTitle( "Notification " )
                 .setMessage( message )
-                .setPositiveButton( "OK", (dialogInterface, i) -> {
-                } )
+                .setPositiveButton( "OK", null )
                 .show();
 
     }
-
 
 
 }

@@ -1,6 +1,6 @@
 package fragments;
 
-import static fragments.Login.loggedInUser;
+//import static fragments.Login.loggedInUser;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -77,14 +77,7 @@ public class Register extends Fragment implements View.OnClickListener {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
-                                loggedInUser.setEmailAddress( strEmail );
-                                loggedInUser.setLanguagePrefer( "English" );
-                                loggedInUser.setAge( 0 );
-                                loggedInUser.setCountry( "" );
-                                loggedInUser.setFullName("\"NO NAME\"");
-                                loggedInUser.setRole( "NormalUser" );
-
-                                addUpdateUser( loggedInUser );
+                                addUpdateUser( new User(strEmail) );
                                 Intent intent = new Intent( getActivity(), MainActivity.class );
                                 startActivity( intent );
                                 getActivity().finishAffinity();

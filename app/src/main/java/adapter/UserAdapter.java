@@ -1,8 +1,10 @@
 package adapter;
 
-import static model.UserManagement.refreshProfilePicture;
+import static model.DatabaseManagement.refreshProfilePicture;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.example.mastersql.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -61,21 +67,47 @@ public class UserAdapter extends BaseAdapter {
         tvEmail = oneItem.findViewById( R.id.tvEmailAddressItem );
         imPhoto = oneItem.findViewById( R.id.imPhoto );
         imDelete = oneItem.findViewById( R.id.imDelete );
-
-        //4- to populate the widgets
         user = (User) getItem( position );
-        refreshProfilePicture( context,user,imPhoto);
+        imDelete.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = v.getId();
+                if (id == R.id.imDelete){
+                    String safeEmail = user.getEmailAddress()
+                            .replace( "@","-" )
+                            .replace( ".","-" );
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder( oneItem.getContext() );
+                    alertDialog.setTitle( "Deletion" );
+                    alertDialog.setMessage( "Do you want to delete this user?" );
+                    alertDialog.setPositiveButton( "Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == Dialog.BUTTON_POSITIVE){
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+                                userRef.child( safeEmail ).removeValue();
+                                usersList.remove( position );
+                                notifyDataSetChanged();
+                            }
+                        }
+                    } );
+                    alertDialog.setNegativeButton( "No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    } );
+                    alertDialog.create().show();
+                }
+            }
+        } );
+        //4- to populate the widgets
+        refreshProfilePicture( context,user.getEmailAddress(),imPhoto);
         tvFullName.setText( user.getFullName() );
         tvEmail.setText( user.getEmailAddress() );
 
 //        String photoName = user.getPhoto();
 
-        imDelete.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                user = (User) getItem( position );
-            }
-        } );
+
         //5- to return the data
         return oneItem;
     }

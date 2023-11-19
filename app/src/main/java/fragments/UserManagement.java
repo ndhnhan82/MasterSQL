@@ -15,19 +15,18 @@ import com.example.mastersql.R;
 import java.util.ArrayList;
 
 import adapter.UserAdapter;
+import model.DatabaseManagement;
 import model.User;
-import model.UserManagement;
 
-public class AdminManagement extends Fragment {
+public class UserManagement extends Fragment {
 
     private ListView lvUsers;
     private View view;
-    private String selectedFromList;
     private Fragment fragment;
 
     private UserAdapter userAdapter;
 
-    public AdminManagement() {
+    public UserManagement() {
     }
 
     @Override
@@ -43,7 +42,7 @@ public class AdminManagement extends Fragment {
 
         lvUsers = (ListView) view.findViewById( R.id.lvUser );
 
-        UserManagement.getUserList( new UserManagement.UserListCallback() {
+        DatabaseManagement.getUserList( new DatabaseManagement.UserListCallback() {
             @Override
             public void onUserListUpdated(ArrayList<User> userList) {
 
@@ -52,8 +51,8 @@ public class AdminManagement extends Fragment {
                 lvUsers.setOnItemClickListener( new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        User selectedUser = (User) lvUsers.getItemAtPosition(position);
-                        launchProfileActivity(selectedUser);
+                        User selectedUser = (User) lvUsers.getItemAtPosition( position );
+                        launchProfileActivity( selectedUser );
                     }
                 } );
             }
@@ -74,4 +73,9 @@ public class AdminManagement extends Fragment {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace( R.id.content_frame, fragment ).addToBackStack( null ).commit();
     }
+
+
+
+
+
 }
