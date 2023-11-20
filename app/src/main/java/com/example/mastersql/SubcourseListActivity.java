@@ -113,7 +113,6 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
                 adapter.notifyDataSetChanged();
 
                 int adapterCount = adapter.getCount();
-                showAlert(String.valueOf(adapterCount));
                 currentProgress= pbSubcourses.getProgress();
                 pbSubcourses.setMax(adapterCount);
                 tvProgress.setText(0 + "/" +pbSubcourses.getMax());
