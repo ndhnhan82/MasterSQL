@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ExerciseTools1">
-
+    tools:context=".Tools2Exercise">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +45,7 @@
                 android:id="@+id/textView"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="@string/which_sql_tool_would_you_use_for_a_large_scale_application"
+                android:text="@string/which_sql_tool_would_you_use_for_web_applications"
                 android:layout_gravity="center"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -131,7 +130,7 @@
                     android:layout_marginEnd="145dp"/>
 
                 <CheckBox
-                    android:id="@+id/ckSQLITE"
+                    android:id="@+id/ckTwo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -156,7 +155,7 @@
                     android:layout_marginEnd="150dp"/>
 
                 <CheckBox
-                    android:id="@+id/ckMySQL"
+                    android:id="@+id/ckOne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

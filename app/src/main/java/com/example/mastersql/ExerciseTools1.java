@@ -74,7 +74,7 @@ public class ExerciseTools1 extends AppCompatActivity implements View.OnClickLis
 
         if (id == btnNext.getId())
         {
-            Intent intent = new Intent(this, ExerciseTools2.class);
+            Intent intent = new Intent(this, Tools2Exercise.class);
             startActivity(intent);
             //finish();
         }

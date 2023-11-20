@@ -1,6 +1,5 @@
 package com.example.mastersql;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,19 +11,16 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ExerciseTools2 extends AppCompatActivity implements View.OnClickListener {
-
+public class Tools2Exercise extends AppCompatActivity implements View.OnClickListener {
     Button btnCancel, btnNext;
     FloatingActionButton fbtnBack;
     CheckBox ckMicrosoftQl, ckOracle, ckMySQL, ckSQLITE;
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_tools2);
+        setContentView(R.layout.activity_tools2_exercise);
         intialize();
     }
-
     private void intialize() {
         btnCancel = findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(this);
