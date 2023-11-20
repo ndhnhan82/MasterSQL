@@ -10,16 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import adapter.CourseAdapter;
@@ -39,7 +34,6 @@ import java.util.Objects;
 public class SubcourseListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView lvCourses;
-    private int currentProgress;
 
     private FloatingActionButton btnAddCourse, fbtnBack;
 
@@ -47,9 +41,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
     private Button btnTakeAQuiz;
 
-    private ProgressBar pbSubcourses;
-    private TextView tvProgress;
-    private Handler handler = new Handler();
+
 
 
     //For Realtime database
@@ -67,24 +59,23 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subcourse_list);
+
+
+
         initialize();
+
     }
 
     private void initialize() {
-        tvProgress = findViewById(R.id.tvProgress);
-        pbSubcourses = findViewById(R.id.pbSubcourses);
 
         text = getIntent().getStringExtra("item_text");
 
         lvCourses = findViewById(R.id.lvCourses);
 
+
         ArrayList<String> list = new ArrayList<>();
         CourseAdapter adapter = new CourseAdapter(SubcourseListActivity.this, list);
-
         lvCourses.setAdapter(adapter);
-
-
-
 
         lvCourses.setClickable(true);
 
@@ -102,28 +93,26 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
         courseDatabase = FirebaseDatabase.getInstance().getReference().child("Courses").child(text);
 
-
         courseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren() ){
+
+
+
                         list.add(snapshot1.getKey());
+
+
+
+
+
+
+
+
                 }
+
                 adapter.notifyDataSetChanged();
-
-                int adapterCount = adapter.getCount();
-                showAlert(String.valueOf(adapterCount));
-                currentProgress= pbSubcourses.getProgress();
-                pbSubcourses.setMax(adapterCount);
-                tvProgress.setText(0 + "/" +pbSubcourses.getMax());
-
-                if(currentProgress == pbSubcourses.getMax())
-                {
-                    btnTakeAQuiz.setVisibility(View.VISIBLE);
-                } else {
-                    btnTakeAQuiz.setVisibility(View.GONE);
-                }
             }
 
             @Override
@@ -131,8 +120,6 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
             }
         });
-
-
 
         storage = FirebaseStorage.getInstance();
 
@@ -142,45 +129,24 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
         runActivityResLauncher();
 
+        lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent( SubcourseListActivity.this, SubCourseContentActivity.class);
+
+                String subCourseTitle =  adapterView.getItemAtPosition(i).toString();
+
+                intent.putExtra("Course_title", text);
+
+                intent.putExtra("subCourse_title", subCourseTitle);
+
+                startActivity( intent );
+            }
+        });
 
 
-
-
-        btnTakeAQuiz.setVisibility(View.GONE);
-
-                lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        if (currentProgress < pbSubcourses.getMax())
-                        {
-                            currentProgress += 1;
-                            pbSubcourses.setProgress(currentProgress);
-                            tvProgress.setText(currentProgress + "/" +pbSubcourses.getMax());
-                        }
-                        if (currentProgress == pbSubcourses.getMax())
-                        {
-                            btnTakeAQuiz.setVisibility(View.VISIBLE);
-                        }
-
-                        Intent intent = new Intent( SubcourseListActivity.this, SubCourseContentActivity.class);
-
-                        String subCourseTitle =  adapterView.getItemAtPosition(i).toString();
-
-                        intent.putExtra("Course_title", text);
-
-                        intent.putExtra("subCourse_title", subCourseTitle);
-
-                        startActivity( intent );
-                    }
-                });
 
     }
-
-
-
-
-
 
 
     private void runActivityResLauncher() {
@@ -212,6 +178,9 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
         if(id == R.id.btnTakeQuiz)
             takeQuiz();
+
+
+
 
     }
 

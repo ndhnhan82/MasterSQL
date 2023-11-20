@@ -36,7 +36,7 @@ public class ExerciseBasictTerms3 extends AppCompatActivity implements View.OnCl
         ckEverything.setOnClickListener(this);
         ckNothing = findViewById(R.id.ckNothing);
         ckNothing.setOnClickListener(this);
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
     }
 

@@ -35,7 +35,7 @@ public class ExerciseBasicViews5 extends AppCompatActivity implements View.OnCli
         ck2.setOnClickListener(this);
         ck1 = findViewById(R.id.ckOne);
         ck1.setOnClickListener(this);
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
     }
 

@@ -60,7 +60,7 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
 
 
@@ -109,7 +109,7 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
         if(id == R.id.btnAdd)
             AddSubCourse();
 
-        if(id == R.id.fbtnBack)
+        if(id == R.id.ivBack)
             finish();
 
     }
