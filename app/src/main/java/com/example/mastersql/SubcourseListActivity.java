@@ -10,20 +10,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.os.Handler;
 import android.util.Log;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import adapter.CourseAdapter;
-import model.Courses;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,7 +38,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class SubcourseListActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -91,7 +94,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
        btnAddCourse = findViewById(R.id.btnAddCourse);
        btnAddCourse.setOnClickListener(this);
 
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
 
         btnTakeAQuiz = findViewById(R.id.btnTakeQuiz);
@@ -206,7 +209,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         if(id == R.id.btnAddCourse)
             view();
 
-        if(id == R.id.fbtnBack)
+        if(id == R.id.ivBack)
             finish();
 
         if(id == R.id.btnTakeQuiz)

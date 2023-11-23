@@ -1,7 +1,5 @@
 package com.example.mastersql;
 
-import static fragments.Login.loggedInUser;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,20 +23,17 @@ public class SplashActivity extends AppCompatActivity {
 
                 nextActivity();
             }
-        } ,2000);
+        } ,1000);
     }
 
     private void nextActivity() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent;
         if (currentUser == null){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity( intent );
+            intent = new Intent( this, LoginActivity.class );
         }else{
-            loggedInUser.setEmailAddress( currentUser.getEmail());
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity( intent );
+            intent = new Intent( this, MainActivity.class );
         }
-
-
+        startActivity( intent );
     }
 }

@@ -36,7 +36,7 @@ public class ExerciseBasicTerms2 extends AppCompatActivity implements View.OnCli
         ckTableName.setOnClickListener(this);
         ckSelectQuery = findViewById(R.id.ckSelectQuery);
         ckSelectQuery.setOnClickListener(this);
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
     }
 

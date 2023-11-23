@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="fragments.Admin"
+    tools:context="fragments.UserManagement"
     android:layout_gravity="fill_horizontal">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ListView
         android:id="@+id/lvUser"
+        android:listSelector="@drawable/item_selector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,5 +23,6 @@
         android:scrollbarSize="10dp"
         android:outlineSpotShadowColor="@color/design_default_color_error"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

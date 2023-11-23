@@ -36,7 +36,7 @@ public class ExerciseBasicTerms4 extends AppCompatActivity implements View.OnCli
         ckDuplicatedKey.setOnClickListener(this);
         ckLink = findViewById(R.id.ckLink);
         ckLink.setOnClickListener(this);
-        fbtnBack = findViewById(R.id.fbtnBack);
+        fbtnBack = findViewById(R.id.ivBack );
         fbtnBack.setOnClickListener(this);
     }
 

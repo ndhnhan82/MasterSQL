@@ -5,24 +5,24 @@
     <string name="_login">Login</string>
     <string name="_register">Register</string>
     <string name="login_register">Login/Register</string>
-    <string name="email_address">Email Address</string>
-    <string name="password">Password</string>
-    <string name="_email_address">"  Email address"</string>
+    <string name="email_address" translatable="false">Email Address</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="_email_address" translatable="false">"  Email address"</string>
     <string name="_password">Password</string>
     <string name="register">Register</string>
     <string name="confirm_password">Confirm password</string>
     <string name="remember_password">Remember password</string>
-    <string name="forget_password">Forget password</string>
+    <string name="forget_password" translatable="false">Forget password</string>
 
     //Navigation menu
-    <string name="nav_home">Home</string>
-    <string name="nav_favorite">Favorite</string>
-    <string name="nav_history">History</string>
-    <string name="nav_account">Account</string>
+    <string name="nav_home" translatable="false">Home</string>
+    <string name="nav_favorite" translatable="false">Favorite</string>
+    <string name="nav_history" translatable="false">History</string>
+    <string name="nav_account" translatable="false">Account</string>
     <string name="nav_profile">My profile</string>
     <string name="nav_sign_out">Sign out</string>
 
-    <string name="nav_drawer_open">Open navigation</string>
+    <string name="nav_drawer_open" translatable="false">Open navigation</string>
     <string name="nav_drawer_close">Close navigation</string>
 
 
@@ -86,7 +86,22 @@
     <string name="mysql">MySQL</string>
     <string name="which_sql_tool_would_you_use_for_web_applications">Which SQL tool would you use for web applications?</string>
     <string name="which_sql_tool_would_you_use_for_online_transactions">Which SQL tool would you use for online transactions?</string>
-    <string name="which_sql_tool_would_you_use_for_mobile_applications">Which SQL tool would you use for mobile applications?</string>
+    <string name="which_sql_tool_would_you_use_for_mobile_applications" translatable="false">Which SQL tool would you use for mobile applications?</string>
     <string name="done">Done</string>
+    <string name="user_achievement" translatable="false">User Achievement</string>
+    <string name="progress_tracking" translatable="false">Progress Tracking</string>
+    <string name="quiz_management" translatable="false">Quiz Management</string>
+    <string name="course_management" translatable="false">Course Management</string>
+    <string name="user_management" translatable="false">User Management</string>
+    <string name="admin_dashboard" translatable="false">Admin dashboard</string>
+    <string name="quit" translatable="false">Quit</string>
+    <string name="real_scenario">Real Scenario</string>
+    <string name="scenario_retail_sales_and_inventory_management">Retail Sales and Inventory Management</string>
+    <string name="in_a_retail_business_sql_is_commonly_used_to_manage_sales_data_and_inventory_assume_you_are_working_for_a_company_that_owns_multiple_retail_stores_and_an_online_platform_your_task_is_to_analyze_and_extract_useful_information_from_the_database_to_support_business_decisions_database_tables_products_table_columns_productid_productname_category_price_stockquantity_sales_table_columns_saleid_productid_saledate_quantity_totalamount_customers_table_columns_customerid_firstname_lastname_email_phone">In a retail business, SQL is commonly used to manage sales data and inventory. Assume you are working for a company that owns multiple retail stores and an online platform. Your task is to analyze and extract useful information from the database to support business decisions. Database Tables: Products Table: Columns: ProductID, ProductName, Category, Price, StockQuantity Sales Table: Columns: SaleID, ProductID, SaleDate, Quantity, TotalAmount Customers Table: Columns: CustomerID, FirstName, LastName, Email, Phone</string>
+    <string name="show_answers">Show Answers</string>
 
+    <style name="Title">
+   <item name="android:textSize">30dp</item>
+   <item name="android:textColor">#E91E63</item>
+</style>
 </resources>
