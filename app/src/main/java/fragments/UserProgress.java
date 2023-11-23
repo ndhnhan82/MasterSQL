@@ -18,7 +18,7 @@ import adapter.UserAdapter;
 import model.DatabaseManagement;
 import model.User;
 
-public class UserManagement extends Fragment {
+public class UserProgress extends Fragment {
 
     private ListView lvUsers;
     private View view;
@@ -26,7 +26,7 @@ public class UserManagement extends Fragment {
 
     private UserAdapter userAdapter;
 
-    public UserManagement() {
+    public UserProgress() {
     }
 
     @Override
@@ -45,10 +45,8 @@ public class UserManagement extends Fragment {
         DatabaseManagement.getUserList( new DatabaseManagement.UserListCallback() {
             @Override
             public void onUserListUpdated(ArrayList<User> userList) {
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                FirebaseDatabase.getInstance().getReference("Users").child( user.getEmail() );
-//                userList.remove( user );
-                userAdapter = new UserAdapter( view.getContext(), userList, UserAdapter.USER_MANAGEMENT);
+
+                userAdapter = new UserAdapter( view.getContext(), userList ,UserAdapter.USER_PROGRESS);
                 lvUsers.setAdapter( userAdapter );
                 lvUsers.setOnItemClickListener( new AdapterView.OnItemClickListener() {
                     @Override
