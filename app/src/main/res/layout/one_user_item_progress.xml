@@ -38,13 +38,14 @@
         app:layout_constraintBottom_toBottomOf="@id/imPhoto"
         />
 
-    <ImageView
+    <TextView
         android:id="@+id/tvProgress"
-        android:layout_width="20dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_toEndOf="@id/tvEmailAddressItem"
-        android:src="@drawable/remove"
         app:layout_constraintRight_toRightOf="parent"
+        android:text="Progress:"
+        android:textColor="@android:color/holo_orange_dark"
         app:layout_constraintTop_toTopOf="parent"
         />
 

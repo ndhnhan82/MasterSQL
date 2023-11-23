@@ -14,7 +14,7 @@ import com.example.mastersql.R;
 public class AdminDashboard extends Fragment implements View.OnClickListener {
 
     private View mRootView;
-    private ImageView imUsers, imQuizzes, imCourses, imProgress, imArchive;
+    private ImageView imUsers, imQuizzes, imCourses, imProgress, imArchive, imRealScenario;
 
 
     @Override
@@ -36,11 +36,13 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
         imCourses = (ImageView) mRootView.findViewById( R.id.imCourses );
         imProgress = (ImageView) mRootView.findViewById( R.id.imProgress );
         imArchive = (ImageView) mRootView.findViewById( R.id.imArchive );
+        imRealScenario = (ImageView) mRootView.findViewById( R.id.imRealScenario );
         imUsers.setOnClickListener( this );
         imQuizzes.setOnClickListener( this );
         imCourses.setOnClickListener( this );
         imProgress.setOnClickListener( this );
         imArchive.setOnClickListener( this );
+        imRealScenario.setOnClickListener( this );
 
     }
 
@@ -48,14 +50,24 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.imUsers) {
-            launchUserManagementFragment();
+            UserManagement userManagementFragment = new UserManagement();
+            launchFragment(userManagementFragment);
         }
+        if (id==R.id.imRealScenario){
+            RealScenario realScenario = new RealScenario();
+            launchFragment(realScenario);
+        }
+        if (id==R.id.imProgress){
+            UserProgress userProgress = new UserProgress();
+            launchFragment(userProgress);
+        }
+
+
     }
 
-    private void launchUserManagementFragment() {
-        UserManagement userManagementFragment = new UserManagement();
+    private void launchFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace( R.id.content_frame, userManagementFragment )
+        fragmentTransaction.replace( R.id.content_frame, fragment )
                 .addToBackStack( null )
                 .commit();
     }
