@@ -10,11 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import adapter.CourseAdapter;
@@ -210,33 +213,9 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
     }
 
     private void takeQuiz() {
-
-        //showAlert(text);
-
-        if (text.equals("BASIC TERMS"))
-        {
-            Intent intent = new Intent( SubcourseListActivity.this, ExerciseBasicTerms1.class );
-
-
-            //intent.putExtra("course_title", text);
-
+            Intent intent = new Intent( SubcourseListActivity.this, ExerciseList.class );
+            intent.putExtra("course_title", text);
             startActivity( intent );
-        }else if (text.equals("TOOLS OF SQL"))
-        {
-            //Intent intent = new Intent( SubcourseListActivity.this, ExerciseTools1.class );
-
-
-            //intent.putExtra("course_title", text);
-
-            //startActivity( intent );
-
-            showAlert("There is not a quiz available at the moment");
-        }
-        else
-        {
-            showAlert("There is not a quiz available at the moment");
-        }
-
     }
 
 
