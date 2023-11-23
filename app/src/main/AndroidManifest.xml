@@ -10,11 +10,10 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MasterSQL"
         tools:targetApi="31">
-
         <activity
             android:name=".SubCourseContentActivity"
             android:exported="false" />
@@ -30,76 +29,63 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-
         <activity
             android:name=".ExerciseBasicTerms1"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-        <activity
-            android:name=".ExerciseBasicTerms2"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-
-        <activity
-            android:name=".ExerciseBasictTerms3"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-        <activity
-            android:name=".ExerciseBasicTerms4"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-        <activity
-            android:name=".ExerciseBasicViews5"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-        <activity
-            android:name=".ExerciseTools1"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-        <activity
-            android:name=".ExerciseTools2"
-            android:screenOrientation="portrait"
-            android:exported="true">
-
-
-
-        </activity>
-
-        <activity
-
-            android:name=".LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExerciseBasicTerms2"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExerciseBasictTerms3"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExerciseBasicTerms4"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExerciseBasicViews5"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExerciseTools1"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExerciseTools2"
+            android:exported="false"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
-       <activity
+        <activity
             android:name=".ExerciseTools3"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ExerciseTools4"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-
-
-
-
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
