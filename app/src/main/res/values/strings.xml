@@ -72,7 +72,7 @@
     <string name="include">Include</string>
     <string name="everything">Everything</string>
     <string name="what_is_a_foreign_key">What is a foreign key?</string>
-        <string name="constraint_that_ensures_column_uniqueness">Constraint that ensures column uniqueness</string>
+    <string name="constraint_that_ensures_column_uniqueness">Constraint that ensures column uniqueness</string>
     <string name="an_automatically_generated_key">an automatically generated key</string>
     <string name="a_key_that_stores_duplicate_values">A key that stores duplicate values</string>
     <string name="a_link_between_tablea">A link between tables</string>

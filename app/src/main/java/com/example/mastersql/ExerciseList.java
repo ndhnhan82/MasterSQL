@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
     private TextView tvAnswer1,tvAnswer2,tvAnswer3,tvAnswer4, tvQuestion;
     private FloatingActionButton fabBack;
     private String text, questionIntent;
+    public static Activity fa;
 
     private ListView lvAnswers;
 
@@ -55,6 +57,7 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_list);
+        fa = this;
 
         text = getIntent().getStringExtra("course_title");
 
@@ -143,6 +146,8 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
             loadQuestion(currentQuestionNumber); // Load the next question
         } else {
             // Handle the end of questions
+            Intent intent = new Intent( ExerciseList.this, FinishExerciseActivity.class );
+            startActivity( intent );
         }
     }
 

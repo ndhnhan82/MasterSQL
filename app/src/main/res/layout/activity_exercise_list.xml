@@ -49,10 +49,10 @@
 
             <TextView
                 android:id="@+id/tvQuestion"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Question"
-                android:layout_gravity="center"
+                android:layout_gravity="center_vertical"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 />
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="95dp">
 
             <Button
