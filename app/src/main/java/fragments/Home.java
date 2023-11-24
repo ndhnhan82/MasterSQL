@@ -62,7 +62,7 @@ public class Home extends Fragment implements View.OnClickListener {
         lvCourses = (ListView) mRootView.findViewById( R.id.lvCourses );
 
         ArrayList<String> list = new ArrayList<>();
-        CourseAdapter adapter = new CourseAdapter( getActivity(), list );
+        CourseAdapter adapter = new CourseAdapter( getActivity(), list, 1 );
         lvCourses.setAdapter( adapter );
 
         lvCourses.setClickable( true );

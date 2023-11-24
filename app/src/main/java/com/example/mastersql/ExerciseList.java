@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,12 +23,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
+import adapter.CourseAdapter;
+
 public class ExerciseList extends AppCompatActivity implements View.OnClickListener {
     private Button btnCancel, btnNext;
     private CheckBox ckAnswer1,ckAnswer2,ckAnswer3,ckAnswer4;
     private TextView tvAnswer1,tvAnswer2,tvAnswer3,tvAnswer4, tvQuestion;
     private FloatingActionButton fabBack;
     private String text, questionIntent;
+
+    private ListView lvAnswers;
+
+    private int currentQuestionNumber = 1;
+    private int totalQuestions = 0;
 
     //For Realtime database
     DatabaseReference courseDatabase, subDatabase;
@@ -44,71 +55,81 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_list);
+
+        text = getIntent().getStringExtra("course_title");
+
+        fetchTotalQuestions();
+
         initialize();
     }
 
     private void initialize() {
-        text = getIntent().getStringExtra("course_title");
-        questionIntent = getIntent().getStringExtra("question");
+
+
         btnCancel = findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(this);
+
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(this);
-        ckAnswer1 = findViewById(R.id.ckAnswer1);
-        ckAnswer1.setOnClickListener(this);
-        ckAnswer2 = findViewById(R.id.ckAnswer2);
-        ckAnswer2.setOnClickListener(this);
-        ckAnswer3 = findViewById(R.id.ckAnswer3);
-        ckAnswer3.setOnClickListener(this);
-        ckAnswer4 = findViewById(R.id.ckAnswer4);
-        ckAnswer4.setOnClickListener(this);
-        fabBack = findViewById(R.id.ivBack );
+
+        fabBack = findViewById(R.id.ivBack);
         fabBack.setOnClickListener(this);
+
         tvQuestion = findViewById(R.id.tvQuestion);
-        tvAnswer1 = findViewById(R.id.tvAnswer1);
-        tvAnswer2 = findViewById(R.id.tvAnswer2);
-        tvAnswer3 = findViewById(R.id.tvAnswer3);
-        tvAnswer4 = findViewById(R.id.tvAnswer4);
-        //Initialization of Objects to Firebase database & Storage
 
-        courseDatabase = FirebaseDatabase.getInstance().getReference("Exercises").child(text).child(questionIntent);
+        lvAnswers = findViewById(R.id.lvAnswers);
 
-        courseDatabase.addValueEventListener(new ValueEventListener() {
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+    }
+
+
+    private void loadQuestion(int questionNumber) {
+        String questionKey = "Question" + questionNumber;
+        courseDatabase = FirebaseDatabase.getInstance().getReference("Exercises").child(text).child(questionKey);
+
+        ArrayList<String> list = new ArrayList<>();
+        CourseAdapter adapter = new CourseAdapter(ExerciseList.this, list, 2);
+        lvAnswers.setAdapter(adapter);
+
+        courseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                showAlert(courseDatabase.toString());
-                String questionText = snapshot.child("Question").getValue(String.class);
-                tvQuestion.setText(questionText);
-                String answerText1 = snapshot.child("Answers").child(String.valueOf(0)).getValue(String.class);
-                tvAnswer1.setText(answerText1);
-                String answerText2 = snapshot.child("Answers").child(String.valueOf(1)).getValue(String.class);
-                tvAnswer2.setText(answerText2);
-                String answerText3 = snapshot.child("Answers").child(String.valueOf(2)).getValue(String.class);
-                tvAnswer3.setText(answerText3);
-                String answerText4 = snapshot.child("Answers").child(String.valueOf(3)).getValue(String.class);
-                tvAnswer4.setText(answerText4);
+                if (snapshot.exists()) {
+                    list.clear();
+                    String questionText = snapshot.child("Question").getValue(String.class);
+                    tvQuestion.setText(questionText);
+
+                    DataSnapshot answersSnapshot = snapshot.child("Answers");
+                    for (DataSnapshot answerSnapshot : answersSnapshot.getChildren()) {
+                        String answer = answerSnapshot.getValue(String.class);
+                        list.add(answer);
+                    }
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // Handle the scenario where the question doesn't exist
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle the error
             }
         });
-
-
-        storage = FirebaseStorage.getInstance();
-
-        storageReference = storage.getReference();
     }
+
+
+
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnCancel)
             cancel();
-        if (id == R.id.btnNext)
+        else if (id == R.id.btnNext)
             next();
-        if (id == R.id.ivBack)
+        else if (id == R.id.ivBack)
             back();
     }
 
@@ -117,9 +138,12 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
     }
 
     private void next() {
-        Intent intent = new Intent(this, ExerciseList.class);
-        intent.putExtra("question", "Question2");
-        startActivity(intent);
+        if (currentQuestionNumber < totalQuestions) {
+            currentQuestionNumber++; // Move to the next question
+            loadQuestion(currentQuestionNumber); // Load the next question
+        } else {
+            // Handle the end of questions
+        }
     }
 
     private void cancel()
@@ -138,4 +162,29 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
                 .show();
 
     }
+
+
+
+    private void fetchTotalQuestions() {
+        DatabaseReference subjectRef = FirebaseDatabase.getInstance().getReference("Exercises").child(text);
+
+        subjectRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Count the number of child nodes under the subject
+                    totalQuestions = (int) snapshot.getChildrenCount();
+                    loadQuestion(currentQuestionNumber); // Load the first question
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 }

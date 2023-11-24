@@ -13,15 +13,33 @@ import java.util.ArrayList;
 
 public class CourseAdapter extends ArrayAdapter<String> {
 
-    public CourseAdapter(Context context, ArrayList<String> courses) {
+    public static final int COURSE_LIST = 1;
+    public static final int EXERCISE_LIST = 2;
+
+    private int viewType;
+
+
+    public CourseAdapter(Context context, ArrayList<String> courses, int viewType)
+    {
         super(context, 0, courses);
+
+        this.viewType = viewType;
+
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.course_list, parent, false);
+            switch (viewType) {
+                case 1: // For course view
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.course_list, parent, false);
+                    break;
+                case 2: // For another view
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.answers_list, parent, false);
+                    break;
+                // Add more cases if needed
+            }
         }
 
         // Get the data item for this position

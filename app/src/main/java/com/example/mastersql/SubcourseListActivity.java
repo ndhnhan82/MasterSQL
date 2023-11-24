@@ -77,11 +77,9 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         lvCourses = findViewById(R.id.lvCourses);
 
         ArrayList<String> list = new ArrayList<>();
-        CourseAdapter adapter = new CourseAdapter(SubcourseListActivity.this, list);
+        CourseAdapter adapter = new CourseAdapter(SubcourseListActivity.this, list, 1);
 
         lvCourses.setAdapter(adapter);
-
-
 
 
         lvCourses.setClickable(true);
