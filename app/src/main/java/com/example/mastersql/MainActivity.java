@@ -30,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import fragments.AdminDashboard;
 import fragments.Home;
 import fragments.Profile;
-import fragments.UserDashboard;
 import model.User;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -137,13 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment( new Home() );
                 mCurrentFragment = FRAGMENT_HOME;
             }
-        } else if (id == R.id.nav_users) {
-            if (mCurrentFragment != FRAGMENT_USER_DASHBOARD) {
-                replaceFragment( new UserDashboard());
-                mCurrentFragment = FRAGMENT_USER_DASHBOARD;
-            }
-
-        }else if (id == R.id.nav_my_profile) {
+            } else if (id == R.id.nav_my_profile) {
             if (mCurrentFragment != FRAGMENT_PROFILE) {
                 replaceFragment( new Profile(new User(currUserLogged.getEmailAddress().toString(), "normalUser")) );
                 mCurrentFragment = FRAGMENT_PROFILE;
