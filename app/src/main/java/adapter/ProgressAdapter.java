@@ -23,9 +23,9 @@ public class ProgressAdapter extends ArrayAdapter<CategoryProgress> {
     private int viewType;
 
 
-    public ProgressAdapter(Context context, ArrayList<CategoryProgress> courses, int viewType) {
+    public ProgressAdapter(Context context, ArrayList<CategoryProgress> courses) {
         super(context, 0, courses);
-        this.viewType = viewType;
+
     }
 
 
