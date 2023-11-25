@@ -56,8 +56,14 @@ public class UserDashboardActivity extends AppCompatActivity {
         ProgressAdapter adapter = new ProgressAdapter(this, list, 3);
         lvCourseProgress.setAdapter(adapter);
 
-        DatabaseReference courseDatabase = FirebaseDatabase.getInstance().getReference()
-                .child("Users").child("c-gmail-com").child("PROGRESS");
+        //DatabaseReference courseDatabase = FirebaseDatabase.getInstance().getReference()
+                //.child("Users").child("c-gmail-com").child("PROGRESS");
+
+        String userUniqueKey = getIntent().getStringExtra("UserUniqueKey");
+        if (userUniqueKey != null) {
+            DatabaseReference courseDatabase = FirebaseDatabase.getInstance().getReference()
+                    .child("Users").child(userUniqueKey).child("PROGRESS");
+        }
 
         courseDatabase.addValueEventListener(new ValueEventListener() {
             @Override

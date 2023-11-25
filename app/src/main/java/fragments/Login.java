@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mastersql.MainActivity;
 import com.example.mastersql.R;
+import com.example.mastersql.SubcourseListActivity;
+import com.example.mastersql.UserDashboardActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -62,6 +64,12 @@ public class Login extends Fragment implements View.OnClickListener {
                     .addOnCompleteListener( getActivity(), task -> {
                         if (task.isSuccessful()) {
                             gotoMainActivity();
+
+                            Intent intent = new Intent( getContext(), UserDashboardActivity.class );
+                            String userUniqueKey = safeEmail;
+                            intent.putExtra("UserUniqueKey", userUniqueKey);
+                            startActivity(intent);
+
                         } else
                             showAlert( "Your email or password is not correct. PLease try again or register a new user!" );
                     } );
