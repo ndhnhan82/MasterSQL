@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import fragments.AdminDashboard;
 import fragments.Home;
 import fragments.Profile;
+import fragments.UserDashboard;
 import model.User;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initialize() {
-        if (FirebaseApp.getApps(this).isEmpty()) {
-            FirebaseApp.initializeApp(this);
+        if (FirebaseApp.getApps( this ).isEmpty()) {
+            FirebaseApp.initializeApp( this );
         }
 
         drawerLayout = (DrawerLayout) findViewById( R.id.drawer_layout );
@@ -86,12 +87,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (currUserLogged.getRole().equals( "Admin" )) {
                     navigationView.getMenu().findItem( R.id.nav_admin ).setVisible( true );
                     replaceFragment( new AdminDashboard() );
-                } else{
+                } else {
                     replaceFragment( new Home() );
                     navigationView.getMenu().findItem( R.id.nav_admin ).setVisible( false );
                 }
                 imgAvatar = (ImageView) navHeaderView.findViewById( R.id.imgUser );
-                refreshProfilePicture(getBaseContext(),currUserLogged.getEmailAddress(),imgAvatar);
+                refreshProfilePicture( getBaseContext(), currUserLogged.getEmailAddress(), imgAvatar );
             }
 
             @Override
@@ -110,16 +111,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userRef.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                currUserLogged = (User)snapshot.getValue( User.class);
+                currUserLogged = (User) snapshot.getValue( User.class );
 
                 callback.onUserUpdated( currUserLogged );
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                callback.onFailure(error.toException());
+                callback.onFailure( error.toException() );
             }
         } );
     }
+
     public interface UserCallback {
         void onUserUpdated(User user);
 
@@ -136,9 +139,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment( new Home() );
                 mCurrentFragment = FRAGMENT_HOME;
             }
-            } else if (id == R.id.nav_my_profile) {
+        } else if (id == R.id.nav_users) {
+            if (mCurrentFragment != FRAGMENT_USER_DASHBOARD) {
+                replaceFragment( new UserDashboard() );
+                mCurrentFragment = FRAGMENT_USER_DASHBOARD;
+            }
+        } else if (id == R.id.nav_my_profile) {
             if (mCurrentFragment != FRAGMENT_PROFILE) {
-                replaceFragment( new Profile(new User(currUserLogged.getEmailAddress().toString(), "normalUser")) );
+                replaceFragment( new Profile( new User( currUserLogged.getEmailAddress().toString(), "normalUser" ) ) );
                 mCurrentFragment = FRAGMENT_PROFILE;
             }
         } else if (id == R.id.nav_admin) {
@@ -152,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.finish();
             Intent intent = new Intent( this, LoginActivity.class );
             startActivity( intent );
-        }else if (id == R.id.nav_quit){
+        } else if (id == R.id.nav_quit) {
             this.finish();
             getApplication().notifyAll();
         }
@@ -167,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else
             super.onBackPressed();
     }
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace( R.id.content_frame, fragment );
