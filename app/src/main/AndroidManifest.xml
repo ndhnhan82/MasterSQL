@@ -20,6 +20,8 @@
 
 
 
+
+
         </activity>
         <activity
             android:name=".FinishExerciseActivity"
@@ -53,6 +55,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
 
         </activity>
         <activity
