@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mastersql.R;
@@ -15,6 +16,7 @@ public class CourseAdapter extends ArrayAdapter<String> {
 
     public static final int COURSE_LIST = 1;
     public static final int EXERCISE_LIST = 2;
+
 
     private int viewType;
 
@@ -38,7 +40,8 @@ public class CourseAdapter extends ArrayAdapter<String> {
                 case 2: // For another view
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.answers_list, parent, false);
                     break;
-                // Add more cases if needed
+
+
             }
         }
 
@@ -48,13 +51,17 @@ public class CourseAdapter extends ArrayAdapter<String> {
         // Lookup view for data population
         TextView tvName = (TextView) convertView.findViewById(R.id.txtVName);
 
+        //ProgressBar pbCourseProgress = convertView.findViewById(R.id.pbCircular);
+
         // Populate the data into the template view using the data object
         tvName.setText(course);
 
-        // Return the completed view to render on screen
+
+
         return convertView;
     }
 
 
 
 }
+

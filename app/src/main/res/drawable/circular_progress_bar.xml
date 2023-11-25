@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="ring"
+            android:thicknessRatio="15"
+            android:useLevel="false">
+            <solid android:color="#F0F0F0"/> <!-- Background Color -->
+        </shape>
+    </item>
+    <item>
+        <rotate
+            android:fromDegrees="270"
+            android:toDegrees="270">
+            <shape android:shape="ring"
+                android:thicknessRatio="15"
+                android:useLevel="true"> <!-- Use level to show progress -->
+                <solid android:color="#FF0000"/> <!-- Progress Color -->
+            </shape>
+        </rotate>
+    </item>
+</layer-list>
