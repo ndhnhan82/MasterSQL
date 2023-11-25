@@ -32,7 +32,7 @@ public class fragmentTemplateActivity extends Fragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mRootView = inflater.inflate( R.layout.fragment_dashboard, container, false );
+        mRootView = inflater.inflate( R.layout.fragment_admin_dashboard, container, false );
         return mRootView;
     }
 

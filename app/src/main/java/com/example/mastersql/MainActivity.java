@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import fragments.AdminDashboard;
 import fragments.Home;
 import fragments.Profile;
+import fragments.UserDashboard;
 import model.User;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_PROFILE = 1;
     private static final int FRAGMENT_ADMIN = 2;
+    private static final int FRAGMENT_USER_DASHBOARD = 3;
     private int mCurrentFragment = FRAGMENT_HOME;
 
     private TextView tvUserName, tvEmailAddress;
@@ -83,11 +85,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     tvUserName.setText( currUserLogged.getFullName() );
                 }
                 if (currUserLogged.getRole().equals( "Admin" )) {
-                    navigationView.getMenu().findItem( R.id.nav_users ).setVisible( true );
+                    navigationView.getMenu().findItem( R.id.nav_admin ).setVisible( true );
                     replaceFragment( new AdminDashboard() );
                 } else{
                     replaceFragment( new Home() );
-                    navigationView.getMenu().findItem( R.id.nav_users ).setVisible( false );
+                    navigationView.getMenu().findItem( R.id.nav_admin ).setVisible( false );
                 }
                 imgAvatar = (ImageView) navHeaderView.findViewById( R.id.imgUser );
                 refreshProfilePicture(getBaseContext(),currUserLogged.getEmailAddress(),imgAvatar);
@@ -135,12 +137,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment( new Home() );
                 mCurrentFragment = FRAGMENT_HOME;
             }
-        } else if (id == R.id.nav_my_profile) {
+        } else if (id == R.id.nav_users) {
+            if (mCurrentFragment != FRAGMENT_USER_DASHBOARD) {
+                replaceFragment( new UserDashboard());
+                mCurrentFragment = FRAGMENT_USER_DASHBOARD;
+            }
+
+        }else if (id == R.id.nav_my_profile) {
             if (mCurrentFragment != FRAGMENT_PROFILE) {
                 replaceFragment( new Profile(new User(currUserLogged.getEmailAddress().toString(), "normalUser")) );
                 mCurrentFragment = FRAGMENT_PROFILE;
             }
-        } else if (id == R.id.nav_users) {
+        } else if (id == R.id.nav_admin) {
             if (mCurrentFragment != FRAGMENT_ADMIN) {
                 AdminDashboard adminDashboard = new AdminDashboard();
                 replaceFragment( adminDashboard );
