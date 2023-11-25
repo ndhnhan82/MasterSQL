@@ -10,32 +10,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-        <ImageView
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/ivBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:clickable="true"
-            android:src="@drawable/back_button"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="bottom"
-            />
+            android:src="@drawable/baseline_keyboard_backspace_24" />
 
         <TextView
             android:id="@+id/tvAddCourseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ADD COURSE"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginRight="95dp"
             android:layout_gravity="center_vertical"
-            />
+            android:layout_marginRight="95dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="ADD COURSE"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -43,9 +41,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCourseTitleTag"
@@ -59,143 +56,127 @@
         <EditText
             android:id="@+id/edTxtCourseTitle"
             style="@style/editTextAddCourse"
-            android:text=""
-            android:textAlignment="center"
             android:gravity="center"
-            />
+            android:text=""
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCourseIDTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Course ID:"
             android:layout_marginStart="20dp"
+            android:text="Course ID:"
             android:textSize="20sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edTxtCourseID"
             style="@style/editTextAddCourse"
-            android:text=""
-            android:textAlignment="center"
             android:gravity="center"
             android:inputType="number"
-            />
+            android:text=""
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvSubCourseTitleTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SubCourse Title:"
             android:layout_marginStart="20dp"
+            android:text="SubCourse Title:"
             android:textSize="20sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edTxtSubCourseTitle"
             style="@style/editTextAddCourse"
-            android:text=""
-            android:textAlignment="center"
             android:gravity="center"
-            />
+            android:text=""
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvSubCourseIDTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SubCourse ID:"
             android:layout_marginStart="20dp"
+            android:text="SubCourse ID:"
             android:textSize="20sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edTxtSubCourseID"
             style="@style/editTextAddCourse"
-            android:text=""
-            android:textAlignment="center"
             android:gravity="center"
             android:inputType="number"
-            />
+            android:text=""
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvContentHeaderTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Content Header:"
             android:layout_marginStart="20dp"
+            android:text="First Content Header:"
             android:textSize="20sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edTxtContentHeader"
             style="@style/editTextAddCourse"
-            android:text=""
-            android:textAlignment="center"
             android:gravity="center"
-            />
+            android:text=""
+            android:textAlignment="center" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvContentTextTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Content Text:"
             android:layout_marginStart="20dp"
+            android:text="First Content Text:"
             android:textSize="20sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextContentText"
+            style="@style/editTextAddTextContent"
             android:ems="6"
             android:gravity="start|top"
-            android:inputType="textMultiLine"
-            style="@style/editTextAddTextContent"
-            />
+            android:inputType="textMultiLine" />
     </LinearLayout>
 
     <LinearLayout
@@ -207,10 +188,9 @@
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            />
+            android:layout_marginTop="20dp"
+            android:text="Add" />
 
 
     </LinearLayout>
