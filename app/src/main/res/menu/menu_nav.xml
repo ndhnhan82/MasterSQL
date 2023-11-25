@@ -6,15 +6,15 @@
             android:icon="@drawable/ic_home"
             android:title="@string/nav_home" />
         <item
-            android:id="@+id/nav_favorite"
+            android:id="@+id/nav_users"
             android:icon="@drawable/ic_favorite"
-            android:title="@string/nav_favorite" />
+            android:title="Dash board" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_history"
             android:title="@string/nav_history" />
         <item
-            android:id="@+id/nav_users"
+            android:id="@+id/nav_admin"
             android:icon="@android:drawable/star_big_on"
             android:title="Admin" />
     </group>
@@ -31,7 +31,7 @@
                 android:title="@string/nav_sign_out" />
             <item
                 android:id="@+id/nav_quit"
-                android:icon="@android:drawable/ic_notification_clear_all"
+                android:icon="@drawable/ic_exit"
                 android:title="@string/quit" />
 
         </menu>

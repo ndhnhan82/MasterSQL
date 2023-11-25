@@ -25,7 +25,7 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate( R.layout.fragment_dashboard, container, false );
+        mRootView = inflater.inflate( R.layout.fragment_admin_dashboard, container, false );
         initialize();
         return mRootView;
     }

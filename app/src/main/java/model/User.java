@@ -3,12 +3,6 @@ package model;
 import androidx.annotation.NonNull;
 
 public class User {
-//    public enum languages {English, French}
-//
-//    ;
-//
-//    public enum roles {Admin, NormalUser}
-
 
     @NonNull
     @Override
