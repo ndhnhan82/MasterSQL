@@ -66,6 +66,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subcourse_list);
         initialize();
+
     }
 
     private void initialize() {
