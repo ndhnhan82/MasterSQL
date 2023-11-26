@@ -48,6 +48,8 @@ public class Login extends Fragment implements View.OnClickListener {
         String safeEmail = strEmail.replace( "@", "-" )
                 .replace( ".", "-" );
 
+
+
         if (strEmail.isEmpty() || strPassword.isEmpty()) {
             showAlert( "Your email and password cannot be empty. Please reenter and try again!" );
             return;
@@ -62,6 +64,7 @@ public class Login extends Fragment implements View.OnClickListener {
                     .addOnCompleteListener( getActivity(), task -> {
                         if (task.isSuccessful()) {
                             gotoMainActivity();
+
                         } else
                             showAlert( "Your email or password is not correct. PLease try again or register a new user!" );
                     } );
