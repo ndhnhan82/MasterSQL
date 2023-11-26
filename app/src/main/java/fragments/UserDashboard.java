@@ -8,10 +8,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mastersql.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +37,7 @@ public class UserDashboard extends Fragment {
     private ProgressBar pbCoursesDashboard;
 
 
+
     //For Realtime database
     DatabaseReference courseDatabase;
 
@@ -56,15 +59,21 @@ public class UserDashboard extends Fragment {
     }
 
     private void initialize() {
+
+
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace("@", "-")
+                .replace(".", "-");
+
+
         lvCourseProgress = mRootView.findViewById(R.id.lvCourseProgress);
         ArrayList<CategoryProgress> list = new ArrayList<>();
-        ProgressAdapter adapter = new ProgressAdapter( getContext(), list);
+        ProgressAdapter adapter = new ProgressAdapter(getContext(), list);
         lvCourseProgress.setAdapter(adapter);
 
 
 
-        DatabaseReference courseDatabase = FirebaseDatabase.getInstance().getReference()
-                .child("Users").child("b-gmail-com").child("PROGRESS");
+        courseDatabase = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(userEmail).child("PROGRESS");
 
 
 
@@ -91,6 +100,23 @@ public class UserDashboard extends Fragment {
                 // Handle database read error
             }
         });
+
+
+
+
+
+
+    }
+
+    private void showAlert(String message) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder( getContext() );
+
+        builder.setTitle( "Notification" )
+                .setMessage( message )
+                .setPositiveButton( "OK", (dialogInterface, i) -> {
+                } )
+                .show();
 
     }
 
