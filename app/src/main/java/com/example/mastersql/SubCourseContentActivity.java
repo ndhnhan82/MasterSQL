@@ -1,6 +1,7 @@
 package com.example.mastersql;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -87,16 +88,16 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
                     if (!snapshot.getValue().equals(true))
                     {
                         userProgressRef.setValue(true);
-                    }
-                } else {
-//                    showAlert("No subcourse exists");
-                }
 
+                    }
+                }
+                else {
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-//                showAlert("Action Cancelled");
+               Log.e("Firebase", "Error updating value: " + error.getMessage());
 
             }
         });
