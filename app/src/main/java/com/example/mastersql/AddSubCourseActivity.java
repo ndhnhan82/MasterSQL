@@ -50,7 +50,7 @@ public class AddSubCourseActivity extends AppCompatActivity implements View.OnCl
 
         text = getIntent().getStringExtra("course_title");
 
-        btnAdd = findViewById(R.id.btnAdd);
+        btnAdd = findViewById(R.id.btnAddSubCourse );
         btnAdd.setOnClickListener(this);
 
         imBack = findViewById(R.id.imBack );
@@ -87,7 +87,7 @@ public class AddSubCourseActivity extends AppCompatActivity implements View.OnCl
 
         int id = view.getId();
 
-        if(id == R.id.btnAdd)
+        if(id == R.id.btnAddSubCourse)
             AddSubCourse();
 
         if(id == R.id.imBack)

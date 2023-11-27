@@ -52,7 +52,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
     private void initialize() {
 
-        btnAdd = findViewById(R.id.btnAdd);
+        btnAdd = findViewById(R.id.btnAddSubCourse );
         btnAdd.setOnClickListener(this);
 
         imBack = findViewById(R.id.imBack );
@@ -101,7 +101,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
         int id = view.getId();
 
-        if(id == R.id.btnAdd)
+        if(id == R.id.btnAddSubCourse)
             AddCourse();
 
         if(id == R.id.imBack)

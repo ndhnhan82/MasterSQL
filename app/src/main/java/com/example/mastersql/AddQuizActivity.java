@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -30,25 +29,25 @@ public class AddQuizActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_quiz );
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_add_quiz );
         initialize();
     }
 
     private void initialize() {
 
-        btnAdd = findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(this);
+        btnAdd = findViewById( R.id.btnAddSubCourse );
+        btnAdd.setOnClickListener( this );
 
-        ivBack = findViewById(R.id.ivBack );
-        ivBack.setOnClickListener(this);
+        ivBack = findViewById( R.id.ivBack );
+        ivBack.setOnClickListener( this );
 
-        edSubcourseName = findViewById(R.id.edSubcourseName);
-        edQuestion = findViewById(R.id.edQuestion);
-        edAnswer1 = findViewById(R.id.edAnswer1);
-        edAnswer2 = findViewById(R.id.edAnswer2);
-        edAnswer3 = findViewById(R.id.edAnswer3);
-        edCorrectAnswer = findViewById(R.id.edCorrectAnswer);
+        edSubcourseName = findViewById( R.id.edSubcourseName );
+        edQuestion = findViewById( R.id.edQuestion );
+        edAnswer1 = findViewById( R.id.edAnswer1 );
+        edAnswer2 = findViewById( R.id.edAnswer2 );
+        edAnswer3 = findViewById( R.id.edAnswer3 );
+        edCorrectAnswer = findViewById( R.id.edCorrectAnswer );
 
     }
 
@@ -57,43 +56,15 @@ public class AddQuizActivity extends AppCompatActivity implements View.OnClickLi
         int id = v.getId();
         if (id == R.id.ivBack)
             finish();
-        if (id == R.id.btnAdd)
-        {
-            fetchTotalQuestions();
-            if (totalQuestions > 0)
-            {
-                totalQuestions += 1;
-                String questionKey = "Question" + totalQuestions;
-                exerciseDatabase = FirebaseDatabase.getInstance().getReference("Exercises").child(edSubcourseName.getText().toString()).child(questionKey);
-                String QuestionNumber = exerciseDatabase.getKey();
-                ArrayList<String> answers = new ArrayList<String>();
-                answers.add(edAnswer1.getText().toString());
-                answers.add(edAnswer2.getText().toString());
-                answers.add(edAnswer3.getText().toString());
-                answers.add(edCorrectAnswer.getText().toString());
-
-                HashMap<String, Object> subCourseMap = new HashMap<>();
-                subCourseMap.put("Question", edQuestion.getText().toString());
-                subCourseMap.put("Answers", answers);
-                exerciseDatabase.setValue(subCourseMap);
-
-                Toast.makeText(this, "Question has been added", Toast.LENGTH_SHORT).show();
-                edSubcourseName.setText(null);
-                edAnswer1.setText(null);
-                edAnswer2.setText(null);
-                edAnswer3.setText(null);
-                edCorrectAnswer.setText(null);
-                edQuestion.setText(null);
-            }
-            else {
-                fetchTotalQuestions();
-                Toast.makeText(this, "Try Again",Toast.LENGTH_SHORT);
-            }
+        if (id == R.id.btnAddSubCourse) {
+//            fetchTotalQuestions(AddQuizCallback);
+            addQuestions();
         }
     }
+
     private void showAlert(String message) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder( getApplicationContext() );
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
 
         builder.setTitle( "Notification" )
                 .setMessage( message )
@@ -103,17 +74,39 @@ public class AddQuizActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void fetchTotalQuestions() {
-        exerciseDatabase = FirebaseDatabase.getInstance().getReference("Exercises").child(edSubcourseName.getText().toString());
+    private void addQuestions() {
+        exerciseDatabase = FirebaseDatabase.getInstance().getReference( "Exercises" ).child( edSubcourseName.getText().toString() );
 
-        exerciseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        exerciseDatabase.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     // Count the number of child nodes under the subject
                     totalQuestions = (int) snapshot.getChildrenCount();
-                } else {
+                    totalQuestions += 1;
+                    String questionKey = "Question" + totalQuestions;
+                    exerciseDatabase = FirebaseDatabase.getInstance().getReference( "Exercises" ).child( edSubcourseName.getText().toString() ).child( questionKey );
+                    String QuestionNumber = exerciseDatabase.getKey();
+                    ArrayList<String> answers = new ArrayList<String>();
+                    answers.add( edAnswer1.getText().toString() );
+                    answers.add( edAnswer2.getText().toString() );
+                    answers.add( edAnswer3.getText().toString() );
+                    answers.add( edCorrectAnswer.getText().toString() );
 
+                    HashMap<String, Object> subCourseMap = new HashMap<>();
+                    subCourseMap.put( "Question", edQuestion.getText().toString() );
+                    subCourseMap.put( "Answers", answers );
+                    exerciseDatabase.setValue( subCourseMap );
+
+
+                    edSubcourseName.setText( null );
+                    edAnswer1.setText( null );
+                    edAnswer2.setText( null );
+                    edAnswer3.setText( null );
+                    edCorrectAnswer.setText( null );
+                    edQuestion.setText( null );
+                    showAlert( "Question has been added!" );
+//                    Toast.makeText( AddQuizActivity.this, "Question has been added!", Toast.LENGTH_SHORT ).show();
                 }
             }
 
@@ -121,6 +114,7 @@ public class AddQuizActivity extends AppCompatActivity implements View.OnClickLi
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        } );
+
     }
 }
