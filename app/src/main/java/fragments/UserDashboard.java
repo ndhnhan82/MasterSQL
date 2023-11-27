@@ -86,11 +86,11 @@ public class UserDashboard extends Fragment {
                     int completedCount = 0;
                     int totalCount = (int) categorySnapshot.getChildrenCount();
                     for (DataSnapshot subcourseSnapshot : categorySnapshot.getChildren()) {
-                        if (subcourseSnapshot.getValue(Boolean.class)) {
+                        if (!subcourseSnapshot.getValue(Boolean.class)) {
                             completedCount++;
                         }
+                        list.add(new CategoryProgress(categoryName, completedCount, totalCount));
                     }
-                    list.add(new CategoryProgress(categoryName, completedCount, totalCount));
                 }
                 adapter.notifyDataSetChanged();
             }

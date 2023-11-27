@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import fragments.UserDashboard;
+
 public class AddQuizActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edSubcourseName, edQuestion, edAnswer1, edAnswer2, edAnswer3, edCorrectAnswer;
@@ -106,7 +108,9 @@ public class AddQuizActivity extends AppCompatActivity implements View.OnClickLi
                     edCorrectAnswer.setText( null );
                     edQuestion.setText( null );
                     showAlert( "Question has been added!" );
-//                    Toast.makeText( AddQuizActivity.this, "Question has been added!", Toast.LENGTH_SHORT ).show();
+                }
+                else {
+                    showAlert("Subcourse doesn't exist");
                 }
             }
 
