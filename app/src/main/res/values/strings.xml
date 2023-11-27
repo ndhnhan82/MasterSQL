@@ -99,6 +99,8 @@
     <string name="scenario_retail_sales_and_inventory_management">Retail Sales and Inventory Management</string>
     <string name="in_a_retail_business_sql_is_commonly_used_to_manage_sales_data_and_inventory_assume_you_are_working_for_a_company_that_owns_multiple_retail_stores_and_an_online_platform_your_task_is_to_analyze_and_extract_useful_information_from_the_database_to_support_business_decisions_database_tables_products_table_columns_productid_productname_category_price_stockquantity_sales_table_columns_saleid_productid_saledate_quantity_totalamount_customers_table_columns_customerid_firstname_lastname_email_phone">In a retail business, SQL is commonly used to manage sales data and inventory. Assume you are working for a company that owns multiple retail stores and an online platform. Your task is to analyze and extract useful information from the database to support business decisions. Database Tables: Products Table: Columns: ProductID, ProductName, Category, Price, StockQuantity Sales Table: Columns: SaleID, ProductID, SaleDate, Quantity, TotalAmount Customers Table: Columns: CustomerID, FirstName, LastName, Email, Phone</string>
     <string name="show_answers">Show Answers</string>
+    <string name="dash_board">Dash board</string>
+    <string name="admin">Admin</string>
 
     <style name="Title">
         <item name="android:textSize">30dp</item>

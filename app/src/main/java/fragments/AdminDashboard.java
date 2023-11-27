@@ -1,5 +1,6 @@
 package fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.mastersql.ExerciseList;
 import com.example.mastersql.R;
 
 public class AdminDashboard extends Fragment implements View.OnClickListener {
@@ -44,6 +46,7 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
         imArchive.setOnClickListener( this );
         imRealScenario.setOnClickListener( this );
 
+
     }
 
     @Override
@@ -60,6 +63,10 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
         if (id==R.id.imProgress){
             UserProgress userProgress = new UserProgress();
             launchFragment(userProgress);
+        }
+        if (id==R.id.imQuizs){
+            Intent intent = new Intent(getActivity(),ExerciseList.class);
+            startActivity( intent );
         }
 
 

@@ -15,13 +15,13 @@
         android:orientation="horizontal">
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:clickable="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/baseline_keyboard_backspace_24" />
+            android:layout_marginLeft="60dp"
+            android:src="@drawable/back_button" />
 
         <TextView
             android:id="@+id/tvAddCourseTitle"

@@ -1,11 +1,11 @@
 package com.example.mastersql;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class FinishExerciseActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnHome, btnReview;
@@ -36,7 +36,7 @@ public class FinishExerciseActivity extends AppCompatActivity implements View.On
 
         if (id == R.id.btnReview)
         {
-            ExerciseList.fa.finish();
+//            ExerciseList.fa.finish();
             finish();
         }
     }
