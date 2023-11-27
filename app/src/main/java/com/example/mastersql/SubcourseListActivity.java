@@ -1,5 +1,16 @@
 package com.example.mastersql;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -8,21 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import adapter.CourseAdapter;
-import model.Courses;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,14 +29,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+import adapter.CourseAdapter;
 
 public class SubcourseListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView lvCourses;
     private int currentProgress;
 
-    private FloatingActionButton btnAddCourse, fbtnBack;
+    private ImageView imAddCourse, imBack;
 
     private String text;
 
@@ -63,62 +61,61 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subcourse_list);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_subcourse_list );
         initialize();
-
     }
 
     private void initialize() {
-        tvProgress = findViewById(R.id.tvProgress);
-        pbSubcourses = findViewById(R.id.pbSubcourses);
+        userIdentity();
+        tvProgress = findViewById( R.id.tvProgress );
+        pbSubcourses = findViewById( R.id.pbSubcourses );
 
-        text = getIntent().getStringExtra("item_text");
+        text = getIntent().getStringExtra( "item_text" );
 
-        lvCourses = findViewById(R.id.lvCourses);
+        lvCourses = findViewById( R.id.lvCourses );
 
         ArrayList<String> list = new ArrayList<>();
-        CourseAdapter adapter = new CourseAdapter(SubcourseListActivity.this, list, 1);
+        CourseAdapter adapter = new CourseAdapter( SubcourseListActivity.this, list, 1 );
 
-        lvCourses.setAdapter(adapter);
+        lvCourses.setAdapter( adapter );
 
 
-        lvCourses.setClickable(true);
+        lvCourses.setClickable( true );
 
-       btnAddCourse = findViewById(R.id.btnAddCourse);
-       btnAddCourse.setOnClickListener(this);
+        imAddCourse = findViewById( R.id.btnAddCourse );
+        imAddCourse.setOnClickListener( this );
 
-        fbtnBack = findViewById(R.id.ivBack );
-        fbtnBack.setOnClickListener(this);
+        imBack = findViewById( R.id.ivBack );
+        imBack.setOnClickListener( this );
 
-        btnTakeAQuiz = findViewById(R.id.btnTakeQuiz);
-        btnTakeAQuiz.setOnClickListener(this);
+        btnTakeAQuiz = findViewById( R.id.btnTakeQuiz );
+        btnTakeAQuiz.setOnClickListener( this );
 
 
         //Initialization of Objects to Firebase database & Storage
 
-        courseDatabase = FirebaseDatabase.getInstance().getReference().child("Courses").child(text);
+        courseDatabase = FirebaseDatabase.getInstance().getReference().child( "Courses" ).child( text );
 
 
-        courseDatabase.addValueEventListener(new ValueEventListener() {
+        courseDatabase.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren() ){
-                        list.add(snapshot1.getKey());
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    list.add( snapshot1.getKey() );
                 }
                 adapter.notifyDataSetChanged();
 
                 int adapterCount = adapter.getCount();
-                currentProgress= pbSubcourses.getProgress();
-                pbSubcourses.setMax(adapterCount);
-                tvProgress.setText(0 + "/" +pbSubcourses.getMax());
+                currentProgress = pbSubcourses.getProgress();
+                pbSubcourses.setMax( adapterCount );
+                tvProgress.setText( 0 + "/" + pbSubcourses.getMax() );
 
-                if(currentProgress == pbSubcourses.getMax())
-                {
-                    btnTakeAQuiz.setVisibility(View.VISIBLE);
+                if (currentProgress == pbSubcourses.getMax()) {
+                    btnTakeAQuiz.setVisibility( View.VISIBLE );
                 } else {
-                    btnTakeAQuiz.setVisibility(View.GONE);
+                    btnTakeAQuiz.setVisibility( View.GONE );
                 }
             }
 
@@ -126,8 +123,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-
+        } );
 
 
         storage = FirebaseStorage.getInstance();
@@ -139,44 +135,57 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         runActivityResLauncher();
 
 
+        btnTakeAQuiz.setVisibility( View.GONE );
 
+        lvCourses.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                if (currentProgress < pbSubcourses.getMax()) {
+                    currentProgress += 1;
+                    pbSubcourses.setProgress( currentProgress );
+                    tvProgress.setText( currentProgress + "/" + pbSubcourses.getMax() );
+                }
+                if (currentProgress == pbSubcourses.getMax()) {
+                    btnTakeAQuiz.setVisibility( View.VISIBLE );
+                }
 
-        btnTakeAQuiz.setVisibility(View.GONE);
+                Intent intent = new Intent( SubcourseListActivity.this, SubCourseContentActivity.class );
 
-                lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String subCourseTitle = adapterView.getItemAtPosition( i ).toString();
 
-                        if (currentProgress < pbSubcourses.getMax())
-                        {
-                            currentProgress += 1;
-                            pbSubcourses.setProgress(currentProgress);
-                            tvProgress.setText(currentProgress + "/" +pbSubcourses.getMax());
-                        }
-                        if (currentProgress == pbSubcourses.getMax())
-                        {
-                            btnTakeAQuiz.setVisibility(View.VISIBLE);
-                        }
+                intent.putExtra( "Course_title", text );
 
-                        Intent intent = new Intent( SubcourseListActivity.this, SubCourseContentActivity.class);
+                intent.putExtra( "subCourse_title", subCourseTitle );
 
-                        String subCourseTitle =  adapterView.getItemAtPosition(i).toString();
-
-                        intent.putExtra("Course_title", text);
-
-                        intent.putExtra("subCourse_title", subCourseTitle);
-
-                        startActivity( intent );
-                    }
-                });
+                startActivity( intent );
+            }
+        } );
 
     }
 
+    private void userIdentity() {
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail()
+                .replace( "@", "-" )
+                .replace( ".", "-" );
 
+        FirebaseDatabase.getInstance().getReference("Users").child( userEmail ).child( "role" ).addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue().toString().equals( "Admin" )){
+                    btnTakeAQuiz.setVisibility( View.INVISIBLE );
+                    pbSubcourses.setVisibility( View.INVISIBLE );
+                    tvProgress.setVisibility( View.INVISIBLE );
+                }
 
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        } );
+    }
 
 
     private void runActivityResLauncher() {
@@ -200,21 +209,21 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
         int id = view.getId();
 
-        if(id == R.id.btnAddCourse)
+        if (id == R.id.btnAddCourse)
             view();
 
-        if(id == R.id.ivBack)
+        if (id == R.id.ivBack)
             finish();
 
-        if(id == R.id.btnTakeQuiz)
+        if (id == R.id.btnTakeQuiz)
             takeQuiz();
 
     }
 
     private void takeQuiz() {
-            Intent intent = new Intent( SubcourseListActivity.this, ExerciseList.class );
-            intent.putExtra("course_title", text);
-            startActivity( intent );
+        Intent intent = new Intent( SubcourseListActivity.this, ExerciseList.class );
+        intent.putExtra( "course_title", text );
+        startActivity( intent );
     }
 
 
@@ -225,7 +234,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         Intent intent = new Intent( SubcourseListActivity.this, AddSubcourseActivity.class );
 
 
-        intent.putExtra("course_title", text);
+        intent.putExtra( "course_title", text );
 
         startActivity( intent );
         //SubcourseListActivity.this.finishAffinity();
