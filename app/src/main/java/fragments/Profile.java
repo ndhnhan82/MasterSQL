@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,6 @@ import com.example.mastersql.MainActivity;
 import com.example.mastersql.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +49,7 @@ public class Profile extends Fragment implements View.OnClickListener {
     private Button btnReturn;
     private ImageView imgProfile;
     private int SELECT_PICTURE = 200;
-    private StorageReference storageReference;
+    private StorageReference storageReference, mountainsRef;
     private DatabaseReference userRef;
     private Uri selectedImageUri;
     private ArrayAdapter<CharSequence> adapter;
@@ -79,7 +79,6 @@ public class Profile extends Fragment implements View.OnClickListener {
         String safeEmail = currUser.getEmailAddress()
                 .replace( "@", "-" )
                 .replace( ".", "-" );
-
         tvEmail = (TextView) mRootView.findViewById( R.id.tvEmail );
         edName = (EditText) mRootView.findViewById( R.id.edUserName );
         edAge = (EditText) mRootView.findViewById( R.id.edAge );
@@ -99,7 +98,7 @@ public class Profile extends Fragment implements View.OnClickListener {
         storageReference = FirebaseStorage.getInstance().getReference();
         userRef = FirebaseDatabase.getInstance().getReference( "Users/" + safeEmail );
         setEditDisable();
-        refreshProfilePicture(getContext(),safeEmail,imgProfile);
+        refreshProfilePicture( getContext(), safeEmail, imgProfile );
         fletchData();
         imgProfile.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -108,14 +107,15 @@ public class Profile extends Fragment implements View.OnClickListener {
             }
         } );
     }
+
     private void fletchData() {
         userRef.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                currUser = (User) snapshot.getValue( User.class);
+                currUser = (User) snapshot.getValue( User.class );
                 edName.setText( currUser.getFullName() );
-                edAge.setText( String.valueOf( currUser.getAge() ));
-                    edCountry.setText( currUser.getCountry() );
+                edAge.setText( String.valueOf( currUser.getAge() ) );
+                edCountry.setText( currUser.getCountry() );
                 int selection = (currUser.getLanguagePrefer().equals( "English" )) ? 0 : 1;
                 spLanguage.setSelection( selection );
             }
@@ -171,7 +171,7 @@ public class Profile extends Fragment implements View.OnClickListener {
             if (spLanguage.getSelectedItemId() == 0)
                 currUser.setLanguagePrefer( "English" );
             else
-                currUser.setLanguagePrefer("French" );
+                currUser.setLanguagePrefer( "French" );
 
             DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference( "Users" );
             usersDatabase.child( safeEmail ).setValue( currUser );
@@ -203,34 +203,58 @@ public class Profile extends Fragment implements View.OnClickListener {
     }
 
     private void uploadPicture() {
-        final ProgressDialog pd = new ProgressDialog( getContext() );
-        pd.setTitle( "Uploading image..." );
-        pd.show();
-        String safeEmail = currUser.getEmailAddress();
-        safeEmail = safeEmail.replace( "@", "-" );
-        safeEmail = safeEmail.replace( ".", "-" );
-        StorageReference mountainsRef = storageReference.child( "Images/" + safeEmail + ".jpg" );
-        mountainsRef.putFile( selectedImageUri ).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Snackbar.make( mRootView.findViewById( android.R.id.content ), "image uploaded!", Snackbar.LENGTH_LONG ).show();
-                    }
-                } )
-                .addOnFailureListener( new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText( getActivity().getApplicationContext(), "Failed to upload!", Toast.LENGTH_SHORT ).show();
-                    }
-                } ).addOnProgressListener( new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = snapshot.getBytesTransferred() / snapshot.getTotalByteCount();
-                        pd.setMessage( "Percentage: " + (int) progressPercent + "%" );
-                    }
-                } );
+
+        ProgressDialog pd = null;
+        try {
+            // Existing code for image upload
+
+            Log.d( "UPLOAD", "Starting image upload" );
+            pd = new ProgressDialog( getContext() );
+            pd.setTitle( "Uploading image..." );
+            pd.show();
+
+            String safeEmail = currUser.getEmailAddress();
+            safeEmail = safeEmail.replace( "@", "-" );
+            safeEmail = safeEmail.replace( ".", "-" );
+
+            StorageReference parentRef = storageReference.child( "Images" );
+            StorageReference childRef = parentRef.child( safeEmail + ".jpg" );
+
+            ProgressDialog finalPd = pd;
+            ProgressDialog finalPd1 = pd;
+            ProgressDialog finalPd2 = pd;
+            childRef.putFile( selectedImageUri )
+                    .addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            finalPd.dismiss();
+//                            Snackbar.make( mRootView.findViewById( android.R.id.content ), "Image uploaded!", Snackbar.LENGTH_LONG ).show();
+                            Log.d( "UPLOAD", "Image uploaded successfully" );
+                        }
+                    } )
+                    .addOnFailureListener( new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            finalPd1.dismiss();
+                            Toast.makeText( getActivity().getApplicationContext(), "Failed to upload!", Toast.LENGTH_SHORT ).show();
+                            Log.e( "UPLOAD", "Failed to upload image", e );
+                        }
+                    } )
+                    .addOnProgressListener( new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            double progressPercent = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                            finalPd2.setMessage( "Percentage: " + (int) progressPercent + "%" );
+                            Log.d( "UPLOAD", "Upload progress: " + (int) progressPercent + "%" );
+                        }
+                    } );
+
+        } catch (Exception e) {
+            pd.dismiss();
+            Log.e( "UPLOAD", "Exception during image upload", e );
+            e.printStackTrace();
+        }
+
 
     }
-
 }
