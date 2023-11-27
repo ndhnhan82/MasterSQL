@@ -39,7 +39,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
     private ImageView imAddCourse, imBack;
 
-    private String text;
+    private String courseTitle;
 
     private Button btnTakeAQuiz;
 
@@ -71,7 +71,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         tvProgress = findViewById( R.id.tvProgress );
         pbSubcourses = findViewById( R.id.pbSubCourses );
 
-        text = getIntent().getStringExtra( "item_text" );
+        courseTitle = getIntent().getStringExtra( "item_text" );
 
         lvCourses = findViewById( R.id.lvCourses );
 
@@ -95,7 +95,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
         //Initialization of Objects to Firebase database & Storage
 
-        courseDatabase = FirebaseDatabase.getInstance().getReference().child( "Courses" ).child( text );
+        courseDatabase = FirebaseDatabase.getInstance().getReference().child( "Courses" ).child( courseTitle );
 
 
         courseDatabase.addValueEventListener( new ValueEventListener() {
@@ -115,7 +115,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
                 if (currentProgress == pbSubcourses.getMax()) {
                     btnTakeAQuiz.setVisibility( View.VISIBLE );
                 } else {
-                    btnTakeAQuiz.setVisibility( View.GONE );
+                    btnTakeAQuiz.setVisibility( View.INVISIBLE );
                 }
             }
 
@@ -207,7 +207,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
     private void takeQuiz() {
         Intent intent = new Intent( this, ExerciseList.class );
-        intent.putExtra( "course_title", text );
+        intent.putExtra( "course_title", courseTitle );
         startActivity( intent );
     }
 
@@ -218,7 +218,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         Intent intent = new Intent( SubcourseListActivity.this, AddSubCourseActivity.class );
 
 
-        intent.putExtra( "course_title", text );
+        intent.putExtra( "course_title", courseTitle );
 
         startActivity( intent );
         //SubcourseListActivity.this.finishAffinity();
@@ -253,7 +253,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         String subCourseTitle = adapterView.getItemAtPosition( position ).toString();
 
         Intent intent = new Intent( this, SubCourseContentActivity.class );
-        intent.putExtra( "Course_title", text );
+        intent.putExtra( "Course_title", courseTitle );
 
         intent.putExtra( "subCourse_title", subCourseTitle );
 

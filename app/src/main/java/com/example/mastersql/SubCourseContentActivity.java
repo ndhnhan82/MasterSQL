@@ -79,12 +79,13 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
         userProgressRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d( "TESTING", snapshot.getValue().toString() );
                 // Check if the dataSnapshot has data
                 if (snapshot.exists()) {
                     if (!snapshot.getValue().equals(true))
                     {
                         userProgressRef.setValue(true);
+                        Log.d( "TESTING", "fjgdhjkfgk" );
+
                     }
                     else {
 

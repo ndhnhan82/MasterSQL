@@ -2,6 +2,7 @@ package com.example.mastersql;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,17 +42,15 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_exercise_list );
-
-        fetchTotalQuestions();
-
         initialize();
+        fetchTotalQuestions();
     }
 
     private void initialize() {
 
-//        topic = getIntent().getStringExtra("course_title");
-//        Log.d( "TESTING", topic );
-        topic = "";
+        topic = getIntent().getStringExtra("course_title");
+        Log.d( "TESTING", topic );
+//        topic = "";
         btnCancel = findViewById( R.id.btnCancel );
         btnCancel.setOnClickListener( this );
 
@@ -150,16 +149,24 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
 
 
     private void fetchTotalQuestions() {
+        Log.d( "TESTING", topic );
+
         DatabaseReference subjectRef = FirebaseDatabase.getInstance().getReference( "Exercises" ).child( topic );
+        Log.d( "TESTING", "3" );
 
         subjectRef.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    Log.d( "TESTING", "4" );
+
                     // Count the number of child nodes under the subject
                     totalQuestions = (int) snapshot.getChildrenCount();
                     loadQuestion( currentQuestionNumber ); // Load the first question
+                    Log.d( "TESTING", "5" );
+
                 } else {
+                    Log.d( "TESTING", "6" );
 
                 }
             }
