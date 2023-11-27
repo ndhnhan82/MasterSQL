@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 import adapter.CourseAdapter;
 
-public class SubcourseListActivity extends AppCompatActivity implements View.OnClickListener {
+public class SubcourseListActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ListView lvCourses;
     private int currentProgress;
@@ -137,30 +137,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
         btnTakeAQuiz.setVisibility( View.GONE );
 
-        lvCourses.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (currentProgress < pbSubcourses.getMax()) {
-                    currentProgress += 1;
-                    pbSubcourses.setProgress( currentProgress );
-                    tvProgress.setText( currentProgress + "/" + pbSubcourses.getMax() );
-                }
-                if (currentProgress == pbSubcourses.getMax()) {
-                    btnTakeAQuiz.setVisibility( View.VISIBLE );
-                }
-
-                Intent intent = new Intent( SubcourseListActivity.this, SubCourseContentActivity.class );
-
-                String subCourseTitle = adapterView.getItemAtPosition( i ).toString();
-
-                intent.putExtra( "Course_title", text );
-
-                intent.putExtra( "subCourse_title", subCourseTitle );
-
-                startActivity( intent );
-            }
-        } );
+        lvCourses.setOnItemClickListener( this );
 
     }
 
@@ -169,13 +146,21 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
                 .replace( "@", "-" )
                 .replace( ".", "-" );
 
-        FirebaseDatabase.getInstance().getReference("Users").child( userEmail ).child( "role" ).addValueEventListener( new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference( "Users" ).child( userEmail ).child( "role" ).addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue().toString().equals( "Admin" )){
+                if (snapshot.getValue().toString().equals( "Admin" )) {
                     btnTakeAQuiz.setVisibility( View.INVISIBLE );
                     pbSubcourses.setVisibility( View.INVISIBLE );
                     tvProgress.setVisibility( View.INVISIBLE );
+                    imAddCourse.setVisibility( View.VISIBLE );
+
+                } else {
+                    imAddCourse.setVisibility( View.INVISIBLE );
+                    btnTakeAQuiz.setVisibility( View.VISIBLE );
+                    pbSubcourses.setVisibility( View.VISIBLE );
+                    tvProgress.setVisibility( View.VISIBLE );
+
                 }
 
             }
@@ -221,11 +206,10 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
     }
 
     private void takeQuiz() {
-        Intent intent = new Intent( SubcourseListActivity.this, ExerciseList.class );
+        Intent intent = new Intent( this, ExerciseList.class );
         intent.putExtra( "course_title", text );
         startActivity( intent );
     }
-
 
     private void view() {
 
@@ -242,7 +226,6 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
     }
 
-
     private void showAlert(String message) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder( SubcourseListActivity.this );
@@ -254,4 +237,27 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
                 .show();
 
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        if (currentProgress < pbSubcourses.getMax()) {
+            currentProgress += 1;
+            pbSubcourses.setProgress( currentProgress );
+            tvProgress.setText( currentProgress + "/" + pbSubcourses.getMax() );
+        }
+        if (currentProgress == pbSubcourses.getMax()) {
+            btnTakeAQuiz.setVisibility( View.VISIBLE );
+        }
+
+
+        String subCourseTitle = adapterView.getItemAtPosition( position ).toString();
+
+        Intent intent = new Intent( this, SubCourseContentActivity.class );
+        intent.putExtra( "Course_title", text );
+
+        intent.putExtra( "subCourse_title", subCourseTitle );
+
+        startActivity( intent );
+    }
 }
+

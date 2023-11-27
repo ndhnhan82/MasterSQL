@@ -37,9 +37,6 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
     DatabaseReference courseDatabase;
     FirebaseStorage storage;
     StorageReference storageReference;
-    public ExerciseList(String topic){
-        this.topic = topic;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -52,7 +49,9 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
 
     private void initialize() {
 
-
+//        topic = getIntent().getStringExtra("course_title");
+//        Log.d( "TESTING", topic );
+        topic = "";
         btnCancel = findViewById( R.id.btnCancel );
         btnCancel.setOnClickListener( this );
 

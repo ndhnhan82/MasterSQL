@@ -1,6 +1,7 @@
 package com.example.mastersql;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,8 +23,8 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
     private ImageView imBack;
     private EditText editText;
     private TextView headerTitle;
-    private String text, courseTitle;
-    DatabaseReference subCourseHeaderDatabase, subCourseTextDatabase;
+    private String subTitle, courseTitle;
+    DatabaseReference subCourseHeaderDatabase, subCourseTextDatabase,userProgressRef;
     FirebaseStorage storage;
     StorageReference storageReference;
 
@@ -36,7 +38,7 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
     }
 
     private void initialize() {
-        text = getIntent().getStringExtra("subCourse_title");
+        subTitle = getIntent().getStringExtra("subCourse_title");
         courseTitle = getIntent().getStringExtra("Course_title");
         editText = findViewById(R.id.editTextContentText);
         headerTitle = findViewById(R.id.tvSubCourseHeader);
@@ -44,7 +46,7 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
         imBack.setOnClickListener(this);
         //Initialization of Objects to Firebase database & Storage
 
-        subCourseHeaderDatabase = FirebaseDatabase.getInstance().getReference().child("Courses").child(courseTitle).child(text).child("content").child("header").child("0");
+        subCourseHeaderDatabase = FirebaseDatabase.getInstance().getReference().child("Courses").child(courseTitle).child( subTitle ).child("content").child("header").child("0");
 
         subCourseHeaderDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,8 +68,43 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
                 headerTitle.setText("Error loading content");
             }
         });
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail()
+                .replace("@", "-").replace(".", "-");
+        userProgressRef = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(userEmail).child("PROGRESS")
+                .child( courseTitle ).child( subTitle );
 
-        subCourseTextDatabase = FirebaseDatabase.getInstance().getReference().child("Courses").child(courseTitle).child(text).child("content").child("text").child("0");
+
+
+        userProgressRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d( "TESTING", snapshot.getValue().toString() );
+                // Check if the dataSnapshot has data
+                if (snapshot.exists()) {
+                    if (!snapshot.getValue().equals(true))
+                    {
+                        userProgressRef.setValue(true);
+                    }
+                    else {
+
+                    }
+                } else {
+//                    showAlert("No subcourse exists");
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+//                showAlert("Action Cancelled");
+
+            }
+        });
+
+        subCourseTextDatabase = FirebaseDatabase.getInstance().getReference().child("Courses")
+                .child(courseTitle).child( subTitle ).child("content")
+                .child("text").child("0");
 
         subCourseTextDatabase.addValueEventListener(new ValueEventListener() {
             @Override

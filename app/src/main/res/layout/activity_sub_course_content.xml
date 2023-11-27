@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:paddingTop="20dp"
         >
 
@@ -22,6 +22,7 @@
             android:layout_width="@dimen/_40dp"
             android:layout_height="@dimen/_40dp"
             android:clickable="true"
+            android:layout_marginLeft="@dimen/_40dp"
             android:src="@drawable/back_button" />
 
         <TextView
@@ -36,15 +37,7 @@
             android:inputType="textMultiLine"
             />
 
-        <ImageView
-            android:id="@+id/btnAddCourse"
-            android:layout_width="@dimen/_40dp"
-            android:layout_height="@dimen/_40dp"
-            android:clickable="true"
-            android:src="@drawable/plus"
-            android:layout_marginStart="40dp"
-            android:focusable="true"
-            android:contentDescription="TODO" />
+
 
 
     </LinearLayout>
