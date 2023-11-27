@@ -43,7 +43,6 @@ public class UserAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // the number of items in your list view
         return usersList.size();
     }
 
@@ -128,8 +127,6 @@ public class UserAdapter extends BaseAdapter {
             tvEmail.setText( user.getEmailAddress() );
             tvProgress.setText( "Progress: " + user.getProgress() +" %");
         }
-
-
         return oneItem;
     }
 }

@@ -17,12 +17,12 @@
         android:paddingTop="20dp"
         >
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imBack"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
             android:clickable="true"
-            android:src="@drawable/baseline_keyboard_backspace_24" />
+            android:src="@drawable/back_button" />
 
         <TextView
             android:id="@+id/tvSubCourseHeader"
@@ -36,12 +36,12 @@
             android:inputType="textMultiLine"
             />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageView
             android:id="@+id/btnAddCourse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
             android:clickable="true"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/plus"
             android:layout_marginStart="40dp"
             android:focusable="true"
             android:contentDescription="TODO" />

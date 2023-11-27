@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddSubcourseActivity"
+    tools:context=".AddSubCourseActivity"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,13 +14,15 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imBack"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp"
             android:clickable="true"
-            android:src="@drawable/baseline_keyboard_backspace_24"
-            android:layout_marginLeft="20dp"/>
+            android:src="@drawable/back_button"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="50dp"/>
 
         <TextView
             android:id="@+id/tvAddCourseTitle"
@@ -30,6 +33,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="95dp"
             />
@@ -41,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         >
 
         <TextView

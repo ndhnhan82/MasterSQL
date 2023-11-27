@@ -45,9 +45,6 @@ public class UserManagement extends Fragment {
         DatabaseManagement.getUserList( new DatabaseManagement.UserListCallback() {
             @Override
             public void onUserListUpdated(ArrayList<User> userList) {
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                FirebaseDatabase.getInstance().getReference("Users").child( user.getEmail() );
-//                userList.remove( user );
                 userAdapter = new UserAdapter( view.getContext(), userList, UserAdapter.USER_MANAGEMENT);
                 lvUsers.setAdapter( userAdapter );
                 lvUsers.setOnItemClickListener( new AdapterView.OnItemClickListener() {

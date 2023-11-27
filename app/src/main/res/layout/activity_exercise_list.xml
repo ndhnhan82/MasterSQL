@@ -17,27 +17,28 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/ivBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:layout_marginLeft="30dp"
-                android:src="@drawable/baseline_keyboard_backspace_24" />
+                android:src="@drawable/back_button" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/imAdd"
+                android:layout_width="@dimen/_40dp"
+                android:layout_height="@dimen/_40dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:layout_marginStart="240dp"
-                android:src="@drawable/baseline_question_mark_24" />
+                android:src="@drawable/plus" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView

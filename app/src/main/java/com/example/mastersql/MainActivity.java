@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 if (currUserLogged.getRole().equals( "Admin" )) {
                     navigationView.getMenu().findItem( R.id.nav_admin ).setVisible( true );
+                    navigationView.getMenu().findItem( R.id.nav_home ).setVisible( false );
+                    navigationView.getMenu().findItem( R.id.nav_users ).setVisible( false );
                     replaceFragment( new AdminDashboard() );
                 } else {
                     replaceFragment( new Home() );

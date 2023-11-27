@@ -15,19 +15,9 @@ import java.util.ArrayList;
 import model.CategoryProgress;
 
 public class ProgressAdapter extends ArrayAdapter<CategoryProgress> {
-
-
-
-    public static final int USER_DASHBOARD_LIST = 1;
-
-    private int viewType;
-
-
     public ProgressAdapter(Context context, ArrayList<CategoryProgress> courses) {
         super(context, 0, courses);
-
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -46,5 +36,4 @@ public class ProgressAdapter extends ArrayAdapter<CategoryProgress> {
 
         return convertView;
     }
-
 }

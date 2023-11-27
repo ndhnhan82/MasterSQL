@@ -25,11 +25,11 @@ import model.Content;
 
 public class AddCourse extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText editTxtCourseTitle, editTxtSubCourseTitle, editTxtCourseID, editTxtSubCourseID, edTxtContentHeader, edTxtContentText;
+    private EditText editTxtCourseTitle, editTxtSubCourseTitle,  edTxtContentHeader, edTxtContentText;
 
     private Button btnAdd;
 
-    private ImageView ivBack;
+    private ImageView imBack;
 
     //For Realtime database
     DatabaseReference courseDatabase, subDatabase;
@@ -37,7 +37,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
     //For Firebase Storage
     FirebaseStorage storage;
 
-    StorageReference storageReference, sRef;
+    StorageReference storageReference;
 
     //For receiving results (image) when we click the button browse
     ActivityResultLauncher aResL;
@@ -55,13 +55,11 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
-        ivBack = findViewById(R.id.ivBack );
-        ivBack.setOnClickListener(this);
+        imBack = findViewById(R.id.imBack );
+        imBack.setOnClickListener(this);
 
         editTxtCourseTitle = findViewById(R.id.edTxtCourseTitle);
-        editTxtCourseID = findViewById(R.id.edTxtCourseID);
         editTxtSubCourseTitle = findViewById(R.id.edTxtSubCourseTitle);
-        editTxtSubCourseID = findViewById(R.id.edTxtSubCourseID);
         edTxtContentHeader = findViewById(R.id.edTxtContentHeader);
         edTxtContentText = findViewById(R.id.editTextContentText);
 
@@ -106,7 +104,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
         if(id == R.id.btnAdd)
             AddCourse();
 
-        if(id == R.id.ivBack)
+        if(id == R.id.imBack)
             finish();
 
 
@@ -122,9 +120,6 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
         ArrayList<String> Text = new ArrayList<String>();
         Text.add(edTxtContentText.getText().toString());
-
-       // int subCourseID = Integer.parseInt(editTxtSubCourseID.getText().toString());
-        //int courseID = Integer.parseInt(editTxtCourseID.getText().toString());
 
         Content content = new Content(1, Header, Text);
 
@@ -142,12 +137,7 @@ public class AddCourse extends AppCompatActivity implements View.OnClickListener
 
         // Set the value using the course title as the key
         courseDatabase.child(editTxtCourseTitle.getText().toString()).setValue(courseMap);
-
-
-
     }
-
-
 }
 
 

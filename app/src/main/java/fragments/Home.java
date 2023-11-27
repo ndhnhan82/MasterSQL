@@ -27,8 +27,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -37,11 +35,9 @@ public class Home extends Fragment implements View.OnClickListener {
     private ListView lvCourses;
 
     private ImageView btnAddCourse;
-    private View mRootView, subCourseView;
+    private View mRootView;
 
     private DatabaseReference courseDatabase, userRole;
-    private FirebaseStorage storage;
-    private StorageReference storageReference, sRef;
     private ActivityResultLauncher aResL;
     private FirebaseUser currUser;
 
@@ -120,8 +116,6 @@ public class Home extends Fragment implements View.OnClickListener {
             }
         } );
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
         runActivityResLauncher();
         lvCourses.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override

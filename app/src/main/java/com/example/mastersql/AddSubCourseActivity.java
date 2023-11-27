@@ -1,19 +1,17 @@
 package com.example.mastersql;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import model.Content;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -22,23 +20,21 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AddSubcourseActivity extends AppCompatActivity implements View.OnClickListener {
+import model.Content;
 
+public class AddSubCourseActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText editTxtSubCourseTitle, editTxtSubCourseID, edTxtContentHeader, edTxtContentText;
-
     private Button btnAdd;
-
-    private FloatingActionButton fbtnBack;
-
+    private ImageView imBack;
     private String text;
 
     //For Realtime database
-    DatabaseReference courseDatabase, subDatabase;
+    DatabaseReference courseDatabase;
 
     //For Firebase Storage
     FirebaseStorage storage;
 
-    StorageReference storageReference, sRef;
+    StorageReference storageReference;
 
     //For receiving results (image) when we click the button browse
     ActivityResultLauncher aResL;
@@ -47,10 +43,7 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subcourse);
-
-
         initialize();
-
     }
 
     private void initialize() {
@@ -60,17 +53,12 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
-        fbtnBack = findViewById(R.id.ivBack );
-        fbtnBack.setOnClickListener(this);
-
-
+        imBack = findViewById(R.id.imBack );
+        imBack.setOnClickListener(this);
         editTxtSubCourseTitle = findViewById(R.id.edTxtSubCourseTitle);
         editTxtSubCourseID = findViewById(R.id.edTxtSubCourseID);
         edTxtContentHeader = findViewById(R.id.edTxtContentHeader);
         edTxtContentText = findViewById(R.id.editTextContentText);
-
-
-        //Initialization of Objects to Firebase database & Storage
 
         courseDatabase = FirebaseDatabase.getInstance().getReference("Courses");
 
@@ -78,23 +66,16 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
 
         storageReference = storage.getReference();
 
-        // Registration of Activity Result Launcher
-
         runActivityResLauncher();
-
-
     }
 
 
     private void runActivityResLauncher() {
-
         aResL = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-
                     }
                 }
         );
@@ -109,7 +90,7 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
         if(id == R.id.btnAdd)
             AddSubCourse();
 
-        if(id == R.id.ivBack)
+        if(id == R.id.imBack)
             finish();
 
     }
@@ -135,8 +116,6 @@ public class AddSubcourseActivity extends AppCompatActivity implements View.OnCl
         subCourseMap.put("id", subCourseID);
         subCourseMap.put("title", editTxtSubCourseTitle.getText().toString());
         subCourseMap.put("content", content); // Make sure your Content class is structured to convert to a Map
-
-
 
         // Set the value using the course title as the key
         courseDatabase.child(text).child(subCourseKey).setValue(subCourseMap);
