@@ -78,8 +78,6 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         CourseAdapter adapter = new CourseAdapter( SubcourseListActivity.this, list, 1 );
 
         lvCourses.setAdapter( adapter );
-
-
         lvCourses.setClickable( true );
 
         imAddCourse = findViewById( R.id.btnAddCourse );
@@ -95,8 +93,6 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         //Initialization of Objects to Firebase database & Storage
 
         courseDatabase = FirebaseDatabase.getInstance().getReference().child( "Courses" ).child( courseTitle );
-
-
         courseDatabase.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -124,7 +120,6 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
             }
         } );
 
-
         storage = FirebaseStorage.getInstance();
 
         storageReference = storage.getReference();
@@ -134,7 +129,7 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
         runActivityResLauncher();
 
 
-        btnTakeAQuiz.setVisibility( View.GONE );
+        btnTakeAQuiz.setVisibility( View.INVISIBLE );
 
         lvCourses.setOnItemClickListener( this );
 
@@ -233,9 +228,8 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
             pbSubcourses.setProgress( currentProgress );
             tvProgress.setText( currentProgress + "/" + pbSubcourses.getMax() );
         }
-        if (currentProgress == pbSubcourses.getMax()) {
+        else
             btnTakeAQuiz.setVisibility( View.VISIBLE );
-        }
 
 
         String subCourseTitle = adapterView.getItemAtPosition( position ).toString();

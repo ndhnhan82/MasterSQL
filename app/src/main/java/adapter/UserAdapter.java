@@ -17,6 +17,8 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.mastersql.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -93,6 +95,11 @@ public class UserAdapter extends BaseAdapter {
                                 if (which == Dialog.BUTTON_POSITIVE) {
                                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference( "Users" );
                                     userRef.child( safeEmail ).removeValue();
+
+                                    StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                                    .child( "Images" );
+                                    imageRef.child( safeEmail + ".jpg" ).delete();
+
                                     usersList.remove( position );
                                     notifyDataSetChanged();
                                 }

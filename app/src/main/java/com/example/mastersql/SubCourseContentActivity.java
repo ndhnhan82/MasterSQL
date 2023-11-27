@@ -16,18 +16,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class SubCourseContentActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView imBack;
-    private EditText editText;
-    private TextView headerTitle;
+    private EditText edContent;
+    private TextView tvHeader;
     private String subTitle, courseTitle;
     DatabaseReference subCourseHeaderDatabase, subCourseTextDatabase,userProgressRef;
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,41 +35,53 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
     private void initialize() {
         subTitle = getIntent().getStringExtra("subCourse_title");
         courseTitle = getIntent().getStringExtra("Course_title");
-        editText = findViewById(R.id.editTextContentText);
-        headerTitle = findViewById(R.id.tvSubCourseHeader);
+        edContent = findViewById(R.id.editTextContentText);
+        tvHeader = findViewById(R.id.tvSubCourseHeader);
         imBack = findViewById(R.id.imBack );
         imBack.setOnClickListener(this);
         //Initialization of Objects to Firebase database & Storage
 
-        subCourseHeaderDatabase = FirebaseDatabase.getInstance().getReference().child("Courses").child(courseTitle).child( subTitle ).child("content").child("header").child("0");
+        setHeader();
+        Log.d( "TESTING", "1" );
+        setProgressValue();
+        Log.d( "TESTING", "2" );
+        setContent();
+        Log.d( "TESTING", "3" );
 
-        subCourseHeaderDatabase.addValueEventListener(new ValueEventListener() {
+    }
+
+    private void setContent() {
+        subCourseTextDatabase = FirebaseDatabase.getInstance().getReference().child("Courses")
+                .child(courseTitle).child( subTitle ).child("content")
+                .child("text").child("0");
+        subCourseTextDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 // Check if the dataSnapshot has data
                 if (snapshot.exists()) {
                     // Assuming the data is of type String
-                    String header = snapshot.getValue(String.class);
-                    headerTitle.setText(header); // Set the text from the database
+                    String subText = snapshot.getValue(String.class);
+                    edContent.setText(subText); // Set the text from the database
                 } else {
-                    headerTitle.setText("No content available"); // Handle case where there is no data
+                    edContent.setText("No content available"); // Handle case where there is no data
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                headerTitle.setText("Error loading content");
+                edContent.setText("Error loading content");
             }
         });
+    }
+
+    private void setProgressValue() {
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail()
                 .replace("@", "-").replace(".", "-");
         userProgressRef = FirebaseDatabase.getInstance().getReference()
                 .child("Users").child(userEmail).child("PROGRESS")
                 .child( courseTitle ).child( subTitle );
-
-
 
         userProgressRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,11 +91,6 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
                     if (!snapshot.getValue().equals(true))
                     {
                         userProgressRef.setValue(true);
-                        Log.d( "TESTING", "fjgdhjkfgk" );
-
-                    }
-                    else {
-
                     }
                 } else {
 //                    showAlert("No subcourse exists");
@@ -102,33 +104,30 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
 
             }
         });
+    }
 
-        subCourseTextDatabase = FirebaseDatabase.getInstance().getReference().child("Courses")
-                .child(courseTitle).child( subTitle ).child("content")
-                .child("text").child("0");
-
-        subCourseTextDatabase.addValueEventListener(new ValueEventListener() {
+    private void setHeader() {
+        subCourseHeaderDatabase = FirebaseDatabase.getInstance().getReference().child("Courses").child(courseTitle).child( subTitle ).child("content").child("header").child("0");
+        subCourseHeaderDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 // Check if the dataSnapshot has data
                 if (snapshot.exists()) {
                     // Assuming the data is of type String
-                    String subText = snapshot.getValue(String.class);
-                    editText.setText(subText); // Set the text from the database
+                    String header = snapshot.getValue(String.class);
+                    tvHeader.setText(header); // Set the text from the database
                 } else {
-                    editText.setText("No content available"); // Handle case where there is no data
+                    tvHeader.setText("No content available"); // Handle case where there is no data
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                editText.setText("Error loading content");
+                tvHeader.setText("Error loading content");
             }
         });
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
     }
 
     @Override
