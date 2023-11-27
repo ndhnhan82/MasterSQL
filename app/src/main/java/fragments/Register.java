@@ -1,5 +1,7 @@
 package fragments;
 
+//import static fragments.Login.loggedInUser;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,8 +24,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import model.User;
 
@@ -31,6 +39,7 @@ public class Register extends Fragment implements View.OnClickListener {
     private View mRootView;
     private TextInputEditText tieEmailAddress, tiePassword, tiePassword2;
     private Button btnRegister;
+    // Initialize Firebase Auth
     private FirebaseAuth mAuth;
     AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
@@ -90,6 +99,32 @@ public class Register extends Fragment implements View.OnClickListener {
         String safeEmail = user.getEmailAddress().replace("@", "-").replace(".", "-");
 
         // Fetch courses structure from Firebase
+        DatabaseReference coursesRef = FirebaseDatabase.getInstance().getReference("Courses");
+        coursesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map<String, Object> userProgress = new HashMap<>();
+                for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
+                    String courseName = courseSnapshot.getKey();
+                    Map<String, Boolean> subCoursesProgress = new HashMap<>();
+                    for (DataSnapshot subCourseSnapshot : courseSnapshot.getChildren()) {
+                        subCoursesProgress.put(subCourseSnapshot.getKey(), false); // Default to false (not completed)
+                    }
+                    userProgress.put(courseName, subCoursesProgress);
+                }
+
+                // Update the user's progress in Firebase
+                DatabaseReference userProgressRef = usersDatabase.child(safeEmail).child("PROGRESS");
+                userProgressRef.setValue(userProgress);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
+
+        // Add user to the database
         usersDatabase.child(safeEmail).setValue(user);
     }
 

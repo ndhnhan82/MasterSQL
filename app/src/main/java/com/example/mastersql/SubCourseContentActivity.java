@@ -1,7 +1,6 @@
 package com.example.mastersql;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,11 +41,8 @@ public class SubCourseContentActivity extends AppCompatActivity implements View.
         //Initialization of Objects to Firebase database & Storage
 
         setHeader();
-        Log.d( "TESTING", "1" );
         setProgressValue();
-        Log.d( "TESTING", "2" );
         setContent();
-        Log.d( "TESTING", "3" );
 
     }
 
