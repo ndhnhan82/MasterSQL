@@ -6,17 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mastersql.ExerciseList;
+import com.example.mastersql.AddExerciseActivity;
+import com.example.mastersql.LoginActivity;
 import com.example.mastersql.R;
 
 public class AdminDashboard extends Fragment implements View.OnClickListener {
 
     private View mRootView;
     private ImageView imUsers, imQuizzes, imCourses, imProgress, imArchive, imRealScenario;
+    CardView cvQuiz;
 
 
     @Override
@@ -45,8 +49,8 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
         imProgress.setOnClickListener( this );
         imArchive.setOnClickListener( this );
         imRealScenario.setOnClickListener( this );
-
-
+            cvQuiz = mRootView.findViewById(R.id.cvQuiz);
+            cvQuiz.setOnClickListener(this);
     }
 
     @Override
@@ -64,11 +68,12 @@ public class AdminDashboard extends Fragment implements View.OnClickListener {
             UserProgress userProgress = new UserProgress();
             launchFragment(userProgress);
         }
-        if (id==R.id.imQuizs){
-            Intent intent = new Intent(getActivity(),ExerciseList.class);
-            startActivity( intent );
+        
+        if (id==R.id.cvQuiz)
+        {
+                Intent intent = new Intent( getContext(), AddExerciseActivity.class );
+                startActivity( intent );
         }
-
 
     }
 
