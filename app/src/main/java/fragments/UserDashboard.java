@@ -85,20 +85,25 @@ public class UserDashboard extends Fragment {
                     String categoryName = categorySnapshot.getKey();
                     int completedCount = 0;
                     int totalCount = (int) categorySnapshot.getChildrenCount();
+
                     for (DataSnapshot subcourseSnapshot : categorySnapshot.getChildren()) {
-                        if (!subcourseSnapshot.getValue(Boolean.class)) {
+                        // Assuming 'true' indicates a completed subcourse
+                        if (subcourseSnapshot.getValue(Boolean.class)) {
                             completedCount++;
                         }
-                        list.add(new CategoryProgress(categoryName, completedCount, totalCount));
                     }
+
+                    // Add the category with its completed and total count after iterating all subcourses
+                    list.add(new CategoryProgress(categoryName, completedCount, totalCount));
                 }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle database read error
+
             }
+
         });
 
 
