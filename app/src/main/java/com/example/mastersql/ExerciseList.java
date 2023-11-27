@@ -152,21 +152,15 @@ public class ExerciseList extends AppCompatActivity implements View.OnClickListe
         Log.d( "TESTING", topic );
 
         DatabaseReference subjectRef = FirebaseDatabase.getInstance().getReference( "Exercises" ).child( topic );
-        Log.d( "TESTING", "3" );
 
         subjectRef.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Log.d( "TESTING", "4" );
 
                     // Count the number of child nodes under the subject
                     totalQuestions = (int) snapshot.getChildrenCount();
                     loadQuestion( currentQuestionNumber ); // Load the first question
-                    Log.d( "TESTING", "5" );
-
-                } else {
-                    Log.d( "TESTING", "6" );
 
                 }
             }

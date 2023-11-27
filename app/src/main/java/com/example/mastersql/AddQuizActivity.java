@@ -1,7 +1,6 @@
 package com.example.mastersql;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,7 +59,6 @@ public class AddQuizActivity extends AppCompatActivity implements View.OnClickLi
             finish();
         if (id == R.id.btnAdd)
         {
-            Log.d( "TESTING_QUIZ", "onClick: " );
             fetchTotalQuestions();
             if (totalQuestions > 0)
             {

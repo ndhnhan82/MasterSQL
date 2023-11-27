@@ -16,7 +16,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -226,17 +225,6 @@ public class SubcourseListActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private void showAlert(String message) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder( SubcourseListActivity.this );
-
-        builder.setTitle( "Notification" )
-                .setMessage( message )
-                .setPositiveButton( "OK", (dialogInterface, i) -> {
-                } )
-                .show();
-
-    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
