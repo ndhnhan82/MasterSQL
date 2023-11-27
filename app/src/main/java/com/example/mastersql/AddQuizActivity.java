@@ -1,15 +1,15 @@
 package com.example.mastersql;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,10 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import fragments.AdminDashboard;
-import model.Content;
-
-public class AddExerciseActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddQuizActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edSubcourseName, edQuestion, edAnswer1, edAnswer2, edAnswer3, edCorrectAnswer;
     private Button btnAdd;
@@ -34,7 +31,7 @@ public class AddExerciseActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_exercise);
+        setContentView(R.layout.activity_add_quiz );
         initialize();
     }
 
@@ -58,6 +55,8 @@ public class AddExerciseActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        if (id == R.id.ivBack)
+            finish();
         if (id == R.id.btnAdd)
         {
             fetchTotalQuestions();
